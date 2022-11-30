@@ -1,0 +1,30 @@
+{
+  "name": "mern1",
+  "version": "1.0.0",
+  "description": "Backend Node + Express + TS + Swagger",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/federicorojas11/code-verifier-backend.git"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "typescript",
+    "swagger",
+    "mongoose"
+  ],
+  "author": "Federico Rojas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/federicorojas11/code-verifier-backend/issues"
+  },
+  "homepage": "https://github.com/federicorojas11/code-verifier-backend#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2"
+  }
+}
