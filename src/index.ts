@@ -16,8 +16,13 @@ app.get("/", (req: any, res: any) => {
      );
 });
 
-app.get("/req", (req: any, res: any) => {
-     res.send("Request");
+app.get("/hello", (req: any, res: any) => {
+     const name = req.query.name ? req.query.name : "anonimo";
+     res.send(
+          JSON.stringify({
+               data: { message: "Hola, " + name },
+          })
+     );
 });
 
 app.get("/goodbye", (req: any, res: any) => {
