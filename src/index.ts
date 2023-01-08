@@ -17,8 +17,11 @@ app.get("/", (req: any, res: any) => {
 });
 
 app.get("/req", (req: any, res: any) => {
-     // send hello world
      res.send("Request");
+});
+
+app.get("/goodbye", (req: any, res: any) => {
+     res.send(JSON.stringify({ data: { message: "Goodbye, world" } }));
 });
 
 // execute app and listen requests to PORT
