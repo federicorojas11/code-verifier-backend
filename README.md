@@ -7,10 +7,15 @@ API Restful Express + TS + Swagger + MONGOOSE
 "dotenv": "^16.0.3", // Usar variables de entorno en archivo .env para uso en la aplicación, como por ejemplo API keys
 
     "express": "^4.18.2" // Framework de desarrollo de backend NodeJs del proyecto
+
+    "helmet": "^6.0.1", // Añadir una capa de seguridad a las solicitudes HTTP
+
+    "mongoose": "^6.8.4" // ODM - Biblioteca para conectar con mongodb
     },
 
-
     "devDependencies": {
+
+    "@types/cors": "^2.8.13", // Tipado TS de librería cors
 
     "@types/express": "^4.17.14", // Tipado TS de librería express
 
