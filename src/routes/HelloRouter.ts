@@ -11,7 +11,7 @@ helloRouter.route("/").get(async (req: any, res: any) => {
      const name = req.query.name;
      LogInfo(`Query param ${name}`);
      const controller: HelloController = new HelloController();
-     const response = await controller.getMessage(name);
+     const response: BasicResponse = await controller.getMessage(name);
      return res.send(response);
 });
 
