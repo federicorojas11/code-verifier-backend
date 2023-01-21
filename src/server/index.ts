@@ -15,6 +15,9 @@ const server: Express = express();
 // * Define server to use "/api" amd use rootRouter from 'index.ts in routes
 // * http://localhost:PORT/api/...
 server.use("/api", rootRouter);
+b;
+// Static server
+server.use(express.static("public"));
 
 // TODO Mongoose Connection
 
