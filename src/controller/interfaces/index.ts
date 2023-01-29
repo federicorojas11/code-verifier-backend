@@ -7,3 +7,7 @@ export interface IHelloController {
 export interface IGoodbyeController {
      getMessage(name?: string): Promise<BasicDateResponse>;
 }
+
+export interface IUsersController {
+     postAllMockUsers(): Promise<BasicResponse>;
+}

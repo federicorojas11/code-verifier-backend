@@ -32,6 +32,7 @@ server.use("/api", rootRouter);
 // Static server
 server.use(express.static("public"));
 
+// MongoDB connection
 mongoose.connect("mongodb://localhost:27017/codeverification");
 
 // * Security Config

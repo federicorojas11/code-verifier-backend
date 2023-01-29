@@ -5,7 +5,8 @@
 
 import express, { Request, Response } from "express";
 import helloRouter from "./HelloRouter";
-import goodbyeRouter from "./goodbyeRouter";
+import goodbyeRouter from "./GoodbyeRouter";
+import usersRouter from "./UsersRouter";
 import { LogInfo } from "../utils/logger";
 
 // Server instance
@@ -28,5 +29,6 @@ server.use("/", rootRouter);
 //localhost:8000/api
 http: server.use("/hello", helloRouter); // http://localhost:8000/api/hello -> HelloRouter
 http: server.use("/goodbye", goodbyeRouter); // http://localhost:8000/api/goodbye -> GoodbyeRouter
+http: server.use("/usersmock", usersRouter); // http://localhost:8000/api/usersmock -> UsersRouter
 // Add more routes to the app
 export default server;

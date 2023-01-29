@@ -1,5 +1,6 @@
 import { userEntity } from "../entities/User.entity";
 import { LogError, LogSuccess } from "@/utils/logger";
+import * as usersMock from "../../mock/people.json";
 
 // CRUD Requests
 
@@ -14,6 +15,16 @@ export const GetAllUsers = async (): Promise<any[] | undefined> => {
           return await userModel.find({ isDelete: false });
      } catch (error) {
           LogError(`[ORM ERROR] Getting all users: ${error}`);
+     }
+};
+
+export const postAllUsersMock = async () => {
+     try {
+          let userModel = userEntity();
+
+          return await userModel.insertMany(usersMock);
+     } catch (error) {
+          LogError(`[ORM ERROR] Post users mock: ${error}`);
      }
 };
 
