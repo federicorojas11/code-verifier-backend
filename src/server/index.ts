@@ -18,7 +18,7 @@ const server: Express = express();
 
 // * Swagger config and route
 server.use(
-     "/docs",
+     "/swagger",
      swaggerUi.serve,
      swaggerUi.setup(undefined, {
           swaggerOptions: { url: "/swagger.json", explorer: true },
@@ -33,7 +33,7 @@ server.use("/api", rootRouter);
 server.use(express.static("public"));
 
 // MongoDB connection
-mongoose.connect("mongodb://localhost:27017/codeverification");
+mongoose.connect("mongodb://localhost:27017/Pruebas");
 
 // * Security Config
 server.use(helmet());

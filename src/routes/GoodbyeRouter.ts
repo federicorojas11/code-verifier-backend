@@ -1,4 +1,4 @@
-import { BasicDateResponse } from "@/controller/types";
+import { BasicDateResponse } from "../controller/types";
 import express, { Request, Response } from "express";
 import { GoodbyeController } from "../controller/GoodbyeController";
 import { LogInfo } from "../utils/logger";

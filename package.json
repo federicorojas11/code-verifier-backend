@@ -9,7 +9,7 @@
           "build": "npx webpack --mode development",
           "build:prod": "npx webpack --mode production",
           "start": "node dist/index.js",
-          "dev": "concurrently \"npx tsc --watch\" \"npm run swagger\" \"nodemon -q dist/index.js\"",
+          "dev": "concurrently --raw \"npx tsc --watch\" \"npm run swagger\" \"nodemon -q dist/index.js\"",
           "serve:coverage": "npm run test; cd coverage/lcov-report; npx serve"
      },
      "repository": {
@@ -53,7 +53,7 @@
           "eslint-plugin-import": "^2.26.0",
           "eslint-plugin-n": "^15.6.0",
           "eslint-plugin-promise": "^6.1.1",
-          "nodemon": "^2.0.20",
+          "nodemon": "^2.0.21",
           "serve": "^14.1.2",
           "supertest": "^6.3.3",
           "ts-jest": "^29.0.3",

@@ -27,8 +27,8 @@ rootRouter.get("/", (req: any, res: any) => {
 // Redirections to Routers & Controllers
 server.use("/", rootRouter);
 //localhost:8000/api
-http: server.use("/hello", helloRouter); // http://localhost:8000/api/hello -> HelloRouter
-http: server.use("/goodbye", goodbyeRouter); // http://localhost:8000/api/goodbye -> GoodbyeRouter
-http: server.use("/usersmock", usersRouter); // http://localhost:8000/api/usersmock -> UsersRouter
+server.use("/hello", helloRouter); // http://localhost:8000/api/hello -> HelloRouter
+server.use("/goodbye", goodbyeRouter); // http://localhost:8000/api/goodbye -> GoodbyeRouter
+server.use("/users", usersRouter); // http://localhost:8000/api/users -> UsersRouter
 // Add more routes to the app
 export default server;

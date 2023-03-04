@@ -2,10 +2,8 @@ import mongoose from "mongoose";
 
 export const userEntity = () => {
      let userSchema = new mongoose.Schema({
-          name: String,
-          email: String,
-          age: Number,
+          gender: String,
      });
 
-     return mongoose.model("Users", userSchema);
+     return mongoose.models.Contacts || mongoose.model("Contacts", userSchema);
 };
