@@ -1,5 +1,5 @@
 import server from "./src/server";
-import { LogError, LogSuccess } from "./src/utils/logger";
+import { LogError, LogSuccess } from "./src/logs/logger";
 
 const express = require("express");
 const port: string | number = process.env.PORT || 8000;

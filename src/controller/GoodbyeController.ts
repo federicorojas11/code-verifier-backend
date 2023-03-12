@@ -1,6 +1,6 @@
 import { BasicDateResponse } from "./types";
 import { IGoodbyeController } from "./interfaces";
-import { LogSuccess } from "../utils/logger";
+import { LogSuccess } from "../logs/logger";
 
 export class GoodbyeController implements IGoodbyeController {
      public async getMessage(

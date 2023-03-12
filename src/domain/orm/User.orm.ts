@@ -1,5 +1,5 @@
 import { userEntity } from "../entities/User.entity";
-import { LogError, LogSuccess } from "../../utils/logger";
+import { LogError, LogSuccess } from "../../logs/logger";
 import * as usersMock from "../../mock/people.json";
 
 // CRUD Requests
@@ -28,8 +28,19 @@ export const postAllUsersMock = async () => {
      }
 };
 
-// TODO
 // Get User by ID
+export const getUserById = async (userId: string): Promise<any | undefined> => {
+     try {
+          let userModel = userEntity();
+
+          // search user by ID
+          return await userModel.findById(userId);
+     } catch (error) {
+          LogError(`[ORM ERROR] Getting user by id: ${error}`);
+     }
+};
+
+// TODO
 // Get User by email
 // Delete User by ID
 // Create New User

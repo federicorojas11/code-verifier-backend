@@ -7,7 +7,7 @@ import express, { Request, Response } from "express";
 import helloRouter from "./HelloRouter";
 import goodbyeRouter from "./GoodbyeRouter";
 import usersRouter from "./UsersRouter";
-import { LogInfo } from "../utils/logger";
+import { LogInfo } from "../logs/logger";
 
 // Server instance
 let server = express();

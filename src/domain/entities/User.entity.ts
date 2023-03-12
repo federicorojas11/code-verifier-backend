@@ -5,5 +5,5 @@ export const userEntity = () => {
           gender: String,
      });
 
-     return mongoose.models.Contacts || mongoose.model("Contacts", userSchema);
+     return mongoose.models.contacts || mongoose.model("contacts", userSchema);
 };

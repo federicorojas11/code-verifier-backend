@@ -10,7 +10,7 @@ import swaggerUi from "swagger-ui-express";
 // Root Router
 import rootRouter from "../routes";
 import { request } from "http";
-import { LogInfo } from "../utils/logger";
+import { LogInfo } from "../logs/logger";
 import mongoose from "mongoose";
 
 // create Express app
@@ -33,6 +33,7 @@ server.use("/api", rootRouter);
 server.use(express.static("public"));
 
 // MongoDB connection
+mongoose.set("strictQuery", false);
 mongoose.connect("mongodb://localhost:27017/Pruebas");
 
 // * Security Config

@@ -10,5 +10,5 @@ export interface IGoodbyeController {
 
 export interface IUsersController {
      postAllMockUsers(): Promise<BasicResponse>;
-     getUsers(): Promise<any>;
+     getUsers(id?: string): Promise<any>;
 }

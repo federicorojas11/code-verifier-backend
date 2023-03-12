@@ -1,7 +1,7 @@
 import { BasicDateResponse } from "../controller/types";
 import express, { Request, Response } from "express";
 import { GoodbyeController } from "../controller/GoodbyeController";
-import { LogInfo } from "../utils/logger";
+import { LogInfo } from "../logs/logger";
 
 // Router from express
 let goodbyeRouter = express.Router();

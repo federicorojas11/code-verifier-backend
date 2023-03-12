@@ -1,8 +1,8 @@
-import { Get, Post, Route, Tags } from "tsoa";
+import { Get, Post, Query, Route, Tags } from "tsoa";
 import { BasicResponse } from "./types";
 import { IUsersController } from "./interfaces";
-import { LogSuccess } from "../utils/logger";
-import { GetAllUsers } from "../domain/orm/User.orm";
+import { LogSuccess } from "../logs/logger";
+import { GetAllUsers, getUserById } from "../domain/orm/User.orm";
 
 @Route("/api/users")
 @Tags("UsersController")
@@ -25,9 +25,17 @@ export class UsersController implements IUsersController {
       * @returns {any} Promise<any>
       */
      @Get("/")
-     public async getUsers(): Promise<any> {
-          LogSuccess("[/api/users] Get users request");
-          const response = await GetAllUsers();
+     public async getUsers(@Query() id?: string): Promise<any> {
+          let response: any = "";
+
+          if (id) {
+               LogSuccess("[/api/users/:id] Get request");
+
+               response = await getUserById(id);
+          } else {
+               LogSuccess("[/api/users] Get users request");
+               response = await GetAllUsers();
+          }
           return response;
      }
 }
