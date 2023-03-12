@@ -10,7 +10,7 @@ import * as usersMock from "../../mock/people.json";
 export const GetAllUsers = async (): Promise<any[] | undefined> => {
      try {
           let userModel = userEntity();
-
+          LogSuccess(`[ORM] get all users`);
           // Search all users
           return await userModel.find();
      } catch (error) {
@@ -32,7 +32,7 @@ export const postAllUsersMock = async () => {
 export const getUserById = async (userId: string): Promise<any | undefined> => {
      try {
           let userModel = userEntity();
-
+          LogSuccess(`[ORM] Get user by id ${userId}`);
           // search user by ID
           return await userModel.findById(userId);
      } catch (error) {
@@ -40,8 +40,43 @@ export const getUserById = async (userId: string): Promise<any | undefined> => {
      }
 };
 
+// Delete User by ID
+export const deleteUserById = async (
+     userId: string
+): Promise<any | undefined> => {
+     try {
+          LogSuccess(`[ORM] Deleting user by id: ${userId}`);
+          let userModel = userEntity();
+          return await userModel.deleteOne({ _id: userId }); // delete user
+     } catch (error) {
+          LogError(`[ORM ERROR] Deleting user by id: ${error}`);
+     }
+};
+
+// Create New User
+export const createUser = async (user: any): Promise<any | undefined> => {
+     try {
+          LogSuccess(`[ORM] create user ${JSON.stringify(user)}`);
+          let userModel = userEntity();
+          return await userModel.create({ user }); // create user
+     } catch (error) {
+          LogError(`[ORM ERROR] Creating user: ${error}`);
+     }
+};
+
+// Update User by ID
+export const updateUser = async (
+     user: any,
+     id: string
+): Promise<any | undefined> => {
+     try {
+          LogSuccess(`[ORM] edit user`);
+          let userModel = userEntity();
+          return await userModel.findByIdAndUpdate(id, { user }); // update user
+     } catch (error) {
+          LogError(`[ORM ERROR] Updating user: ${error}`);
+     }
+};
+
 // TODO
 // Get User by email
-// Delete User by ID
-// Create New User
-// Update User by ID

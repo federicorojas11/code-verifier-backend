@@ -1,21 +1,46 @@
 import { colors } from "./logger-colors";
 
 export const LogSuccess = (message: string) => {
-     console.log(colors.bright, colors.fg.green, `Success: ${message}`);
-     console.log(colors.reset);
+     console.log(
+          colors.bright,
+          colors.fg.green,
+          `Success: ${message}`,
+          colors.reset
+     );
+};
+
+export const LogSuccessBg = (message: string) => {
+     console.log(
+          colors.bright,
+          colors.bg.green,
+          `Success: ${message}`,
+          colors.reset
+     );
 };
 
 export const LogError = (message: string) => {
-     console.log(colors.reverse, colors.fg.red, `Error: ${message}`);
-     console.log(colors.reset);
+     console.log(
+          colors.reverse,
+          colors.fg.red,
+          `Error: ${message}`,
+          colors.reset
+     );
 };
 
 export const LogInfo = (message: string) => {
-     console.log(colors.bright, colors.fg.magenta, `Info: ${message}`);
-     console.log(colors.reset);
+     console.log(
+          colors.bright,
+          colors.fg.magenta,
+          `Info: ${message}`,
+          colors.reset
+     );
 };
 
 export const LogWarning = (message: string) => {
-     console.log(colors.bright, colors.fg.yellow, `Warning: ${message}`);
-     console.log(colors.reset);
+     console.log(
+          colors.bright,
+          colors.fg.yellow,
+          `Warning: ${message}`,
+          colors.reset
+     );
 };
