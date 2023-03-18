@@ -1,5 +1,4 @@
 import { Delete, Get, Post, Put, Query, Route, Tags } from "tsoa";
-import { BasicResponse } from "./types";
 import { IKatasController } from "./interfaces";
 import { LogError, LogSuccessBg } from "../logs/logger";
 import {
@@ -7,7 +6,8 @@ import {
      GetAllKatas,
      getKataById,
      updateKata,
-} from "@/domain/orm/Katas.orm";
+} from "../domain/orm/Katas.orm";
+import { Kata } from "../models/katas.interface";
 
 @Route("/api/katas")
 @Tags("KatasController")
@@ -55,7 +55,7 @@ export class KatasController implements IKatasController {
       * @returns {any} Promise<any>
       */
      @Post("/")
-     public async createKata(@Query() kata: any): Promise<any> {
+     public async createKata(@Query() kata: Kata): Promise<any> {
           let response: any = "";
 
           LogSuccessBg("POST=>/api/kata");
@@ -72,7 +72,7 @@ export class KatasController implements IKatasController {
       */
      @Put("/")
      public async updateKataById(
-          @Query() kata: any,
+          @Query() kata: Kata,
           @Query() id: string
      ): Promise<any> {
           let response: any = "";

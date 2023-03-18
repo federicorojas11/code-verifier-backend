@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { LogInfo } from "../logs/logger";
 import { BasicResponse } from "../controller/types";
 import { KatasController } from "../controller/KatasController";
+import { Kata } from "@/models/katas.interface";
 
 // Router from express
 let KatasRouter = express.Router();
@@ -11,13 +12,13 @@ let KatasRouter = express.Router();
 KatasRouter.route("/").post(async (req: Request, res: Response) => {
      LogInfo(`Router: Katas route POST`);
      const controller: KatasController = new KatasController();
-     let Kata = {
-          name: {
-               title: req?.query?.title as string,
-               first: "string",
-               last: "string",
-          },
-          gender: req?.query?.gender as string,
+     let Kata: Kata = {
+          name: req.body.name,
+          level: req.body.level,
+          user: req.body.user,
+          description: req.body.description,
+          valoration: req.body.valoration,
+          chances: req.body.chances,
      };
      const response: BasicResponse = await controller.createKata(Kata);
      return res.send(response);
@@ -49,13 +50,13 @@ KatasRouter.route("/").put(async (req: Request, res: Response) => {
      LogInfo(`Router: Katas route PUT`);
 
      const controller: KatasController = new KatasController();
-     let Kata: any = {
-          name: {
-               title: req?.query?.title as string,
-               first: "string",
-               last: "string",
-          },
-          gender: req?.query?.gender as string,
+     let Kata: Kata = {
+          name: req.body.name,
+          level: req.body.level,
+          user: req.body.user,
+          description: req.body.description,
+          valoration: req.body.valoration,
+          chances: req.body.chances,
      };
 
      let id = req?.query?.id;
