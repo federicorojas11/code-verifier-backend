@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import { LogInfo } from "../logs/logger";
 import { BasicResponse } from "../controller/types";
 import { UsersController } from "../controller/UsersController";
+import { User } from "@/models/user.interface";
 
 // Router from express
 let usersRouter = express.Router();
@@ -12,8 +13,12 @@ usersRouter.route("/").post(async (req: Request, res: Response) => {
      LogInfo(`Router: Users route POST`);
      const controller: UsersController = new UsersController();
      let user = {
-          name: "Fede",
-          movie: req.query.movie || "Sin movie",
+          name: {
+               title: req?.query?.title as string,
+               first: "string",
+               last: "string",
+          },
+          gender: req?.query?.gender as string,
      };
      const response: BasicResponse = await controller.createUser(user);
      return res.send(response);
@@ -46,9 +51,13 @@ usersRouter.route("/").put(async (req: Request, res: Response) => {
      LogInfo(`Router: Users route PUT`);
 
      const controller: UsersController = new UsersController();
-     let user = {
-          name: req?.query?.name,
-          movie: req?.query?.movie,
+     let user: User = {
+          name: {
+               title: req?.query?.title as string,
+               first: "string",
+               last: "string",
+          },
+          gender: req?.query?.gender as string,
      };
 
      let id = req?.query?.id;

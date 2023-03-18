@@ -1,6 +1,7 @@
 import { userEntity } from "../entities/User.entity";
 import { LogError, LogSuccess } from "../../logs/logger";
 import * as usersMock from "../../mock/people.json";
+import { User } from "@/models/user.interface";
 
 // CRUD Requests
 
@@ -54,7 +55,7 @@ export const deleteUserById = async (
 };
 
 // Create New User
-export const createUser = async (user: any): Promise<any | undefined> => {
+export const createUser = async (user: User): Promise<any | undefined> => {
      try {
           LogSuccess(`[ORM] create user ${JSON.stringify(user)}`);
           let userModel = userEntity();
@@ -66,7 +67,7 @@ export const createUser = async (user: any): Promise<any | undefined> => {
 
 // Update User by ID
 export const updateUser = async (
-     user: any,
+     user: User,
      id: string
 ): Promise<any | undefined> => {
      try {

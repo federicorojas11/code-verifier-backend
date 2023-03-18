@@ -9,6 +9,7 @@ import {
      getUserById,
      updateUser,
 } from "../domain/orm/User.orm";
+import { User } from "@/models/user.interface";
 
 @Route("/api/users")
 @Tags("UsersController")
@@ -22,10 +23,10 @@ export class UsersController implements IUsersController {
           let response: any = "";
 
           if (id) {
-               LogSuccessBg("[/api/users/:id] Get request");
+               LogSuccessBg("GET=>/api/users/:id");
                response = await getUserById(id);
           } else {
-               LogSuccessBg("[/api/users] Get users request");
+               LogSuccessBg("GET=>/api/users");
                response = await GetAllUsers();
           }
           return response;
@@ -40,12 +41,12 @@ export class UsersController implements IUsersController {
           let response: any = "";
 
           if (id) {
-               LogSuccessBg("[/api/users/:id] Delete user request");
+               LogSuccessBg("DELETE=>/api/users/:id");
                await deleteUserById(id).then(() => {
                     response = { message: `User with id ${id} deleted` };
                });
           } else {
-               LogError("[/api/users/:id] delete users request");
+               LogError("DELETE=>/api/users/:id");
                response = { message: "Please provide an user ID" };
           }
           return response;
@@ -56,10 +57,10 @@ export class UsersController implements IUsersController {
       * @returns {any} Promise<any>
       */
      @Post("/")
-     public async createUser(@Query() user: any): Promise<any> {
+     public async createUser(@Query() user: User): Promise<any> {
           let response: any = "";
 
-          LogSuccessBg("[/api/users] Create user");
+          LogSuccessBg("POST=>/api/users");
           await createUser(user).then(() => {
                response = { message: `User created successfully`, user: user };
           });
@@ -73,13 +74,13 @@ export class UsersController implements IUsersController {
       */
      @Put("/")
      public async updateUserById(
-          @Query() user: any,
+          @Query() user: User,
           @Query() id: string
      ): Promise<any> {
           let response: any = "";
 
           if (id) {
-               LogSuccessBg("[/api/users/:id] update user");
+               LogSuccessBg("PUT=>/api/users/:id");
                await updateUser(user, id).then(() => {
                     response = {
                          message: `User updated successfully`,
@@ -87,7 +88,7 @@ export class UsersController implements IUsersController {
                     };
                });
           } else {
-               LogError("[/api/users/:id] delete users request");
+               LogError("PUT=>/api/users/:id");
                response = { message: "Please provide an user ID" };
           }
           return response;
