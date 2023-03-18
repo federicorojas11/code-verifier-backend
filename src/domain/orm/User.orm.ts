@@ -78,6 +78,3 @@ export const updateUser = async (
           LogError(`[ORM ERROR] Updating user: ${error}`);
      }
 };
-
-// TODO
-// Get User by email

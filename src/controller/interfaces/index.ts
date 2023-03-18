@@ -15,3 +15,10 @@ export interface IUsersController {
      createUser(user: User): Promise<any>;
      updateUserById(user: User, id: string): Promise<any>;
 }
+
+export interface IKatasController {
+     getKatas(id?: string): Promise<any>;
+     deleteKataById(id?: string): Promise<any>;
+     createKata(kata: any): Promise<any>;
+     updateKataById(kata: any, id: string): Promise<any>;
+}
