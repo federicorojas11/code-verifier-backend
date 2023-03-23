@@ -6,25 +6,33 @@ import { LogError, LogSuccess } from "../../logs/logger";
 /**
  * Method to obtain all katas from collection "katas" in MongoDB
  */
-export const GetAllKatas = async (): Promise<any[] | undefined> => {
+
+const katasModel = katasEntity();
+
+export const GetAllKatas = async (
+     limit?: number
+): Promise<any[] | undefined> => {
      try {
-          let katasModel = katasEntity();
           LogSuccess(`[ORM] get all katas`);
           // Search all katas
-          return await katasModel.find();
+          return (await limit)
+               ? katasModel.find().limit(limit!)
+               : katasModel.find();
      } catch (error) {
           LogError(`[ORM ERROR] Getting all katas: ${error}`);
      }
 };
 
 export const GetKatasByDificulty = async (
-     level: number
+     level: number,
+     limit?: number
 ): Promise<any[] | undefined> => {
      try {
-          let katasModel = katasEntity();
           LogSuccess(`[ORM] get all katas greater than ${level}`);
           // Filter kata by level
-          return await katasModel.find({ level: { $gt: level } });
+          return (await limit)
+               ? katasModel.find({ level: { $gt: level } }).limit(limit!)
+               : katasModel.find({ level: { $gt: level } });
      } catch (error) {
           LogError(`[ORM ERROR] Getting all katas: ${error}`);
      }
@@ -33,7 +41,6 @@ export const GetKatasByDificulty = async (
 // Get Kata by ID
 export const getKataById = async (kataId: string): Promise<any | undefined> => {
      try {
-          let katasModel = katasEntity();
           LogSuccess(`[ORM] Get Kata by id ${kataId}`);
           // search kata by ID
           return await katasModel.findById(kataId);
@@ -48,7 +55,6 @@ export const deletekataById = async (
 ): Promise<any | undefined> => {
      try {
           LogSuccess(`[ORM] Deleting kata by id: ${kataId}`);
-          let katasModel = katasEntity();
           return await katasModel.deleteOne({ _id: kataId }); // delete
      } catch (error) {
           LogError(`[ORM ERROR] Deleting kata by id: ${error}`);
@@ -59,7 +65,6 @@ export const deletekataById = async (
 export const createKata = async (kata: any): Promise<any | undefined> => {
      try {
           LogSuccess(`[ORM] create kata ${JSON.stringify(kata)}`);
-          let katasModel = katasEntity();
           return await katasModel.create({ kata }); // create
      } catch (error) {
           LogError(`[ORM ERROR] Creating kata: ${error}`);
@@ -73,7 +78,6 @@ export const updateKata = async (
 ): Promise<any | undefined> => {
      try {
           LogSuccess(`[ORM] edit kata`);
-          let katasModel = katasEntity();
           return await katasModel.findByIdAndUpdate(id, { kata }); // update
      } catch (error) {
           LogError(`[ORM ERROR] Updating kata: ${error}`);

@@ -33,14 +33,22 @@ KatasRouter.route("/")
           LogInfo(`Query param id: ${id}`);
           const filter: any = req?.query?.dificulty;
           if (filter) LogInfo(`Filter by dificulty n. : ${filter}`);
+          const limit: any = req?.query?.limit;
+          if (limit) LogInfo(`Limit response to: ${filter}`);
+
           const controller: KatasController = new KatasController();
 
           let response: any;
 
           if (id) response = await controller.getKatas(id);
           else if (filter)
-               response = await controller.getKatas(undefined, filter);
-          else response = await controller.getKatas();
+               response = await controller.getKatas(undefined, filter, limit);
+          else
+               response = await controller.getKatas(
+                    undefined,
+                    undefined,
+                    limit
+               );
 
           return res.send(response);
      })

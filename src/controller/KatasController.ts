@@ -20,7 +20,8 @@ export class KatasController implements IKatasController {
      @Get("/")
      public async getKatas(
           @Query() id?: string,
-          @Query() dificulty?: string
+          @Query() dificulty?: number,
+          @Query() limit?: number
      ): Promise<any> {
           let response: any = "";
 
@@ -29,10 +30,10 @@ export class KatasController implements IKatasController {
                response = await getKataById(id);
           } else if (dificulty) {
                LogSuccessBg(`GET=>/api/katas?dificulty=${dificulty}`);
-               response = await GetKatasByDificulty(parseInt(dificulty));
+               response = await GetKatasByDificulty(dificulty, limit);
           } else {
                LogSuccessBg("GET=>/api/katas");
-               response = await GetAllKatas();
+               response = await GetAllKatas(limit);
           }
           return response;
      }
