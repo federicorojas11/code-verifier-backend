@@ -17,6 +17,19 @@ export const GetAllKatas = async (): Promise<any[] | undefined> => {
      }
 };
 
+export const GetKatasByDificulty = async (
+     level: number
+): Promise<any[] | undefined> => {
+     try {
+          let katasModel = katasEntity();
+          LogSuccess(`[ORM] get all katas greater than ${level}`);
+          // Filter kata by level
+          return await katasModel.find({ level: { $gt: level } });
+     } catch (error) {
+          LogError(`[ORM ERROR] Getting all katas: ${error}`);
+     }
+};
+
 // Get Kata by ID
 export const getKataById = async (kataId: string): Promise<any | undefined> => {
      try {

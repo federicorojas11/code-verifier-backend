@@ -8,7 +8,7 @@ export const katasEntity = () => {
           user: String,
           date: Date,
           valoration: Number,
-          changes: Number,
+          chances: Number,
      });
 
      return mongoose.model("Katas", katasSchema);

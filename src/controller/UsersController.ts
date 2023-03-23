@@ -57,8 +57,10 @@ export class UsersController implements IUsersController {
       * @returns {any} Promise<any>
       */
      @Post("/")
-     public async createUser(@Query() user: User): Promise<any> {
+     public async createUser(@Query() user?: User): Promise<any> {
           let response: any = "";
+
+          if (!user) return response;
 
           LogSuccessBg("POST=>/api/users");
           await createUser(user).then(() => {

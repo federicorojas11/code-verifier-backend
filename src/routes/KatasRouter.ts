@@ -29,10 +29,19 @@ KatasRouter.route("/")
      // GET
      .get(async (req: Request, res: Response) => {
           LogInfo(`Router: Katas route GET`);
-          let id: any = req?.query?.id; // optional id
+          const id: any = req?.query?.id; // optional id
           LogInfo(`Query param id: ${id}`);
+          const filter: any = req?.query?.dificulty;
+          if (filter) LogInfo(`Filter by dificulty n. : ${filter}`);
           const controller: KatasController = new KatasController();
-          const response: any = await controller.getKatas(id);
+
+          let response: any;
+
+          if (id) response = await controller.getKatas(id);
+          else if (filter)
+               response = await controller.getKatas(undefined, filter);
+          else response = await controller.getKatas();
+
           return res.send(response);
      })
      // DELETE

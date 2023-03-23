@@ -5,6 +5,7 @@ import {
      createKata,
      GetAllKatas,
      getKataById,
+     GetKatasByDificulty,
      updateKata,
 } from "../domain/orm/Katas.orm";
 import { Kata } from "../models/katas.interface";
@@ -17,12 +18,18 @@ export class KatasController implements IKatasController {
       * @returns {any} Promise<any>
       */
      @Get("/")
-     public async getKatas(@Query() id?: string): Promise<any> {
+     public async getKatas(
+          @Query() id?: string,
+          @Query() dificulty?: string
+     ): Promise<any> {
           let response: any = "";
 
           if (id) {
                LogSuccessBg("GET=>/api/katas/:id");
                response = await getKataById(id);
+          } else if (dificulty) {
+               LogSuccessBg(`GET=>/api/katas?dificulty=${dificulty}`);
+               response = await GetKatasByDificulty(parseInt(dificulty));
           } else {
                LogSuccessBg("GET=>/api/katas");
                response = await GetAllKatas();
@@ -92,3 +99,13 @@ export class KatasController implements IKatasController {
           return response;
      }
 }
+
+// Debes poder obtener las 5 Katas más recientes
+
+// Debes poder listar las Katas ordenadas de mejor valoradas a menos valoradas
+
+// Debes poder valorar una Kata con una nueva nota y debe almacenarse la media
+
+// Por lo que el modelo de Kata deberá tener un valor que será número de valoraciones de usuarios, para así obtener la media
+
+// Debes poder encontrar las Katas ordenadas por intentos
