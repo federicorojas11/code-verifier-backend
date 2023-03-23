@@ -49,6 +49,19 @@ export const getKataById = async (kataId: string): Promise<any | undefined> => {
      }
 };
 
+// Get Ordered Kata by Valoracion
+export const GetKatasOrderedByValue = async (
+     orderBy: boolean
+): Promise<any | undefined> => {
+     try {
+          LogSuccess(`[ORM] Get Katas ordered by value ${orderBy}`);
+          // search kata by ID
+          return await katasModel.find().sort({ valoration: 1 });
+     } catch (error) {
+          LogError(`[ORM ERROR] Getting Katas ordered by value: ${error}`);
+     }
+};
+
 // Delete kata by ID
 export const deletekataById = async (
      kataId: string

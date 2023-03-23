@@ -29,12 +29,18 @@ KatasRouter.route("/")
      // GET
      .get(async (req: Request, res: Response) => {
           LogInfo(`Router: Katas route GET`);
+
           const id: any = req?.query?.id; // optional id
           LogInfo(`Query param id: ${id}`);
+
           const filter: any = req?.query?.dificulty;
           if (filter) LogInfo(`Filter by dificulty n. : ${filter}`);
+
           const limit: any = req?.query?.limit;
           if (limit) LogInfo(`Limit response to: ${filter}`);
+
+          const valoration: any = req?.query?.valoration;
+          if (valoration) LogInfo(`Order by valoration: ${valoration}`);
 
           const controller: KatasController = new KatasController();
 
@@ -43,6 +49,13 @@ KatasRouter.route("/")
           if (id) response = await controller.getKatas(id);
           else if (filter)
                response = await controller.getKatas(undefined, filter, limit);
+          else if (valoration)
+               response = await controller.getKatas(
+                    undefined,
+                    filter,
+                    limit,
+                    valoration
+               );
           else
                response = await controller.getKatas(
                     undefined,

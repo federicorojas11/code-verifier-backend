@@ -6,6 +6,7 @@ import {
      GetAllKatas,
      getKataById,
      GetKatasByDificulty,
+     GetKatasOrderedByValue,
      updateKata,
 } from "../domain/orm/Katas.orm";
 import { Kata } from "../models/katas.interface";
@@ -21,7 +22,8 @@ export class KatasController implements IKatasController {
      public async getKatas(
           @Query() id?: string,
           @Query() dificulty?: number,
-          @Query() limit?: number
+          @Query() limit?: number,
+          @Query() orderByValue?: boolean
      ): Promise<any> {
           let response: any = "";
 
@@ -31,6 +33,9 @@ export class KatasController implements IKatasController {
           } else if (dificulty) {
                LogSuccessBg(`GET=>/api/katas?dificulty=${dificulty}`);
                response = await GetKatasByDificulty(dificulty, limit);
+          } else if (orderByValue) {
+               LogSuccessBg(`GET=>/api/katas?orderByValue=${orderByValue}`);
+               response = await GetKatasOrderedByValue(orderByValue);
           } else {
                LogSuccessBg("GET=>/api/katas");
                response = await GetAllKatas(limit);
@@ -100,8 +105,6 @@ export class KatasController implements IKatasController {
           return response;
      }
 }
-
-// Debes poder obtener las 5 Katas más recientes
 
 // Debes poder listar las Katas ordenadas de mejor valoradas a menos valoradas
 
