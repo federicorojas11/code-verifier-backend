@@ -55,10 +55,23 @@ export const GetKatasOrderedByValue = async (
 ): Promise<any | undefined> => {
      try {
           LogSuccess(`[ORM] Get Katas ordered by value ${orderBy}`);
-          // search kata by ID
+          // order katas
           return await katasModel.find().sort({ valoration: 1 });
      } catch (error) {
           LogError(`[ORM ERROR] Getting Katas ordered by value: ${error}`);
+     }
+};
+
+// Get Ordered Kata by Chances
+export const GetKatasOrderedByChances = async (
+     orderBy: boolean
+): Promise<any | undefined> => {
+     try {
+          LogSuccess(`[ORM] Get Katas ordered by chances ${orderBy}`);
+          // order katas
+          return await katasModel.find().sort({ chances: 1 });
+     } catch (error) {
+          LogError(`[ORM ERROR] Getting Katas ordered by chances: ${error}`);
      }
 };
 
