@@ -1,7 +1,7 @@
 import { userEntity } from "../entities/User.entity";
 import { LogError, LogSuccess } from "../../logs/logger";
 import * as usersMock from "../../mock/people.json";
-import { User } from "@/models/user.interface";
+import { User } from "../../domain/interfaces/user.interface";
 
 // CRUD Requests
 

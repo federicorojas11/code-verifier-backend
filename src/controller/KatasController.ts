@@ -10,7 +10,7 @@ import {
      GetKatasOrderedByValue,
      updateKata,
 } from "../domain/orm/Katas.orm";
-import { Kata } from "../models/katas.interface";
+import { Kata } from "../domain/interfaces/katas.interface";
 
 @Route("/api/katas")
 @Tags("KatasController")

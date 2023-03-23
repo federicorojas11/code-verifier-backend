@@ -9,7 +9,7 @@ import {
      getUserById,
      updateUser,
 } from "../domain/orm/User.orm";
-import { User } from "@/models/user.interface";
+import { User } from "../domain/interfaces/user.interface";
 
 @Route("/api/users")
 @Tags("UsersController")

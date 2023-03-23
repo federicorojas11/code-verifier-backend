@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import { LogInfo } from "../logs/logger";
 import { BasicResponse } from "../controller/types";
 import { KatasController } from "../controller/KatasController";
-import { Kata } from "@/models/katas.interface";
+import { Kata } from "@/domain/interfaces/katas.interface";
 
 // Router from express
 let KatasRouter = express.Router();

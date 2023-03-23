@@ -1,4 +1,4 @@
-import { User } from "@/models/user.interface";
+import { User } from "@/domain/interfaces/user.interface";
 import { BasicDateResponse, BasicResponse } from "../types";
 
 export interface IHelloController {

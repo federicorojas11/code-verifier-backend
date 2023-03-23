@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import { LogInfo } from "../logs/logger";
 import { BasicResponse } from "../controller/types";
 import { UsersController } from "../controller/UsersController";
-import { User } from "@/models/user.interface";
+import { User } from "@/domain/interfaces/user.interface";
 
 // Router from express
 let usersRouter = express.Router();

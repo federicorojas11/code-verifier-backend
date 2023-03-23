@@ -1,4 +1,4 @@
-export interface User {
+export interface Contact {
      _id?: string;
      gender?: string;
      name?: { title: string; first: string; last: string };
