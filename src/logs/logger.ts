@@ -44,3 +44,7 @@ export const LogWarning = (message: string) => {
           colors.reset
      );
 };
+
+export const LogDev = (message: string) => {
+     console.log(colors.fg.white, `Dev: ${message}`, colors.reset);
+};

@@ -71,9 +71,14 @@ export const updateUser = async (
      id: string
 ): Promise<any | undefined> => {
      try {
-          LogSuccess(`[ORM] edit user`);
+          LogSuccess(`[ORM] edit user ${JSON.stringify(user)}`);
           let userModel = userEntity();
-          return await userModel.findByIdAndUpdate(id, { user }); // update user
+
+          return await userModel.findByIdAndUpdate(id, {
+               name: user.name,
+               email: user.email,
+               age: user.age,
+          }); // update user
      } catch (error) {
           LogError(`[ORM ERROR] Updating user: ${error}`);
      }

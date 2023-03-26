@@ -57,7 +57,7 @@ export class UsersController implements IUsersController {
       * @returns {any} Promise<any>
       */
      @Post("/")
-     public async createUser(@Query() user?: User): Promise<any> {
+     public async createUser(@Query() user: User): Promise<any> {
           let response: any = "";
 
           if (!user) return response;
@@ -84,14 +84,16 @@ export class UsersController implements IUsersController {
           if (id) {
                LogSuccessBg("PUT=>/api/users/:id");
                await updateUser(user, id).then(() => {
+                    LogSuccessBg("User updated");
                     response = {
                          message: `User updated successfully`,
                          user: user,
+                         status: 204,
                     };
                });
           } else {
                LogError("PUT=>/api/users/:id");
-               response = { message: "Please provide an user ID" };
+               response = { message: "Please provide an user ID", status: 400 };
           }
           return response;
      }

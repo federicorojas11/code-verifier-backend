@@ -12,7 +12,7 @@ helloRouter.route("/").get(async (req: any, res: any) => {
      LogInfo(`Query param ${name}`);
      const controller: HelloController = new HelloController();
      const response: BasicResponse = await controller.getMessage(name);
-     return res.send(response);
+     return res.status(response.status).send(response);
 });
 
 export default helloRouter;

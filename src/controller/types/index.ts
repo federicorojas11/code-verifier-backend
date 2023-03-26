@@ -4,6 +4,7 @@
 
 export type BasicResponse = {
      message: string;
+     status: number;
 };
 
 /**

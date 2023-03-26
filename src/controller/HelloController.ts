@@ -20,6 +20,7 @@ export class HelloController implements IHelloController {
 
           return {
                message: `Hello ${name || "world"}!`,
+               status: 200,
           };
      }
 }

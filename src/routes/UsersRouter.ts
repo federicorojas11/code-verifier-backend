@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { LogInfo } from "../logs/logger";
+import { LogDev, LogInfo } from "../logs/logger";
 import { BasicResponse } from "../controller/types";
 import { UsersController } from "../controller/UsersController";
 import { User } from "@/domain/interfaces/user.interface";
@@ -12,16 +12,13 @@ let usersRouter = express.Router();
 usersRouter.route("/").post(async (req: Request, res: Response) => {
      LogInfo(`Router: Users route POST`);
      const controller: UsersController = new UsersController();
-     let user = {
-          name: {
-               title: req?.query?.title as string,
-               first: "string",
-               last: "string",
-          },
-          gender: req?.query?.gender as string,
+     let user: User = {
+          name: req?.query?.name as string,
+          email: req?.query?.email as string,
+          age: req?.query?.age as string,
      };
      const response: BasicResponse = await controller.createUser(user);
-     return res.send(response);
+     return res.status(201).send(response);
 });
 
 // http://localhost:8000/api/users || http://localhost:8000/api/users?id=64036794c0afbd2fed7d66d3
@@ -34,7 +31,7 @@ usersRouter
           LogInfo(`Query param id: ${id}`);
           const controller: UsersController = new UsersController();
           const response: any = await controller.getUsers(id);
-          return res.send(response);
+          return res.status(200).send(response);
      })
      // DELETE
      .delete(async (req: Request, res: Response) => {
@@ -43,7 +40,7 @@ usersRouter
           LogInfo(`Query param: ${id}`);
           const controller: UsersController = new UsersController();
           const response: any = await controller.deleteUserById(id);
-          return res.send(response);
+          return res.status(204).send(response);
      });
 
 // UPDATE
@@ -52,14 +49,10 @@ usersRouter.route("/").put(async (req: Request, res: Response) => {
 
      const controller: UsersController = new UsersController();
      let user: User = {
-          name: {
-               title: req?.query?.title as string,
-               first: "string",
-               last: "string",
-          },
-          gender: req?.query?.gender as string,
+          name: req?.query?.name as string,
+          email: req?.query?.email as string,
+          age: req?.query?.age as string,
      };
-
      let id = req?.query?.id;
 
      LogInfo(`Query param: ${id} and user ${JSON.stringify(user)}`);
@@ -68,7 +61,21 @@ usersRouter.route("/").put(async (req: Request, res: Response) => {
                user,
                id
           );
-          return res.send(response);
-     } else return res.send({ message: "Invalid query param" });
+
+          LogDev(`Here is your response: ${JSON.stringify(response)}`);
+          return res.status(response.status).send(response);
+     } else
+          return res
+               .status(400)
+               .send({ message: "Invalid query param. User id is required." });
 });
 export default usersRouter;
+
+/**
+ *
+ * Get Documents => 200 OK
+ * Create Documents => 201 OK
+ * Delete Documents => 200 (Entity) / 204 (No return)
+ * Update Documents => 200 (Entity) / 204 (No return)
+ *
+ */
