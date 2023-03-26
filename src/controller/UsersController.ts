@@ -1,7 +1,7 @@
 import { Delete, Get, Post, Put, Query, Route, Tags } from "tsoa";
 import { BasicResponse } from "./types";
 import { IUsersController } from "./interfaces";
-import { LogError, LogSuccessBg } from "../logs/logger";
+import { LogDev, LogError, LogSuccessBg } from "../logs/logger";
 import {
      createUser,
      deleteUserById,
@@ -63,6 +63,7 @@ export class UsersController implements IUsersController {
           if (!user) return response;
 
           LogSuccessBg("POST=>/api/users");
+          LogDev(JSON.stringify(user));
           await createUser(user).then(() => {
                response = { message: `User created successfully`, user: user };
           });

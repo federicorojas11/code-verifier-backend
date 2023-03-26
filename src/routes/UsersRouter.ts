@@ -12,10 +12,11 @@ let usersRouter = express.Router();
 usersRouter.route("/").post(async (req: Request, res: Response) => {
      LogInfo(`Router: Users route POST`);
      const controller: UsersController = new UsersController();
+
      let user: User = {
-          name: req?.query?.name as string,
-          email: req?.query?.email as string,
-          age: req?.query?.age as string,
+          name: req?.body?.name as string,
+          email: req?.body?.email as string,
+          age: req?.body?.age as string,
      };
      const response: BasicResponse = await controller.createUser(user);
      return res.status(201).send(response);
@@ -62,7 +63,6 @@ usersRouter.route("/").put(async (req: Request, res: Response) => {
                id
           );
 
-          LogDev(`Here is your response: ${JSON.stringify(response)}`);
           return res.status(response.status).send(response);
      } else
           return res
