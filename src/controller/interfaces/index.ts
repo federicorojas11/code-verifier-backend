@@ -1,5 +1,6 @@
 import { User } from "@/domain/interfaces/user.interface";
 import { BasicDateResponse, BasicResponse } from "../types";
+import { Auth } from "@/domain/interfaces/auth.interface";
 
 export interface IHelloController {
      getMessage(name?: string): Promise<BasicResponse>;
@@ -21,4 +22,10 @@ export interface IKatasController {
      deleteKataById(id?: string): Promise<any>;
      createKata(kata: any): Promise<any>;
      updateKataById(kata: any, id: string): Promise<any>;
+}
+
+export interface IAuthController {
+     registerUser(user: User): Promise<any>;
+     loginUser(auth: Auth): Promise<any>;
+     logoutUser(auth: Auth): Promise<any>;
 }

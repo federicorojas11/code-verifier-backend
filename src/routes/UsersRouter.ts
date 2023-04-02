@@ -3,6 +3,7 @@ import { LogDev, LogInfo } from "../logs/logger";
 import { BasicResponse } from "../controller/types";
 import { UsersController } from "../controller/UsersController";
 import { User } from "@/domain/interfaces/user.interface";
+import bcrypt from "bcrypt";
 
 // Router from express
 let usersRouter = express.Router();
@@ -69,13 +70,5 @@ usersRouter.route("/").put(async (req: Request, res: Response) => {
                .status(400)
                .send({ message: "Invalid query param. User id is required." });
 });
-export default usersRouter;
 
-/**
- *
- * Get Documents => 200 OK
- * Create Documents => 201 OK
- * Delete Documents => 200 (Entity) / 204 (No return)
- * Update Documents => 200 (Entity) / 204 (No return)
- *
- */
+export default usersRouter;

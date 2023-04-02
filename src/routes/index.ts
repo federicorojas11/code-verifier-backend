@@ -8,6 +8,7 @@ import helloRouter from "./HelloRouter";
 import goodbyeRouter from "./GoodbyeRouter";
 import usersRouter from "./UsersRouter";
 import katasRouter from "./KatasRouter";
+import AuthRouter from "./AuthRouter";
 import { LogInfo } from "../logs/logger";
 
 // Server instance
@@ -32,5 +33,6 @@ server.use("/hello", helloRouter); // http://localhost:8000/api/hello -> HelloRo
 server.use("/goodbye", goodbyeRouter); // http://localhost:8000/api/goodbye -> GoodbyeRouter
 server.use("/users", usersRouter); // http://localhost:8000/api/users -> UsersRouter
 server.use("/katas", katasRouter); // http://localhost:8000/api/katas -> KatasRouter
+server.use("/auth", AuthRouter); // http://localhost:8000/api/auth -> KatasRouter
 // Add more routes to the app
 export default server;
