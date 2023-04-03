@@ -19,11 +19,11 @@ let rootRouter = express.Router();
 
 // Activate for request to http://localhost:8000/api
 rootRouter.get("/", (req: any, res: any) => {
-     LogInfo("GET: http://localhost:8000/api");
-     // send hello world
-     res.send(
-          "Wellcome to API Restful Express + TS + Nodemon + Jest + Swagger + MONGOOSE"
-     );
+      LogInfo("GET: http://localhost:8000/api");
+      // send hello world
+      res.send(
+            "Wellcome to API Restful Express + TS + Nodemon + Jest + Swagger + MONGOOSE"
+      );
 });
 
 // Redirections to Routers & Controllers
@@ -33,6 +33,6 @@ server.use("/hello", helloRouter); // http://localhost:8000/api/hello -> HelloRo
 server.use("/goodbye", goodbyeRouter); // http://localhost:8000/api/goodbye -> GoodbyeRouter
 server.use("/users", usersRouter); // http://localhost:8000/api/users -> UsersRouter
 server.use("/katas", katasRouter); // http://localhost:8000/api/katas -> KatasRouter
-server.use("/auth", AuthRouter); // http://localhost:8000/api/auth -> KatasRouter
+server.use("/auth", AuthRouter); // http://localhost:8000/api/auth -> AuthRouter
 // Add more routes to the app
 export default server;

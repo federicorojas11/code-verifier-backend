@@ -6,10 +6,6 @@
           "emitDecoratorMetadata": true,
           "module": "commonjs",
           "moduleResolution": "node",
-          "baseUrl": "./",
-          "paths": {
-               "@/*": ["src/*"]
-          },
           "typeRoots": ["./node_modules/@types"],
           "sourceMap": true,
           "outDir": "./dist/",

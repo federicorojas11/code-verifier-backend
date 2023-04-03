@@ -1,73 +1,78 @@
-import { Post, Query, Route, Tags } from "tsoa";
+import { Post, Body, Route, Tags } from "tsoa";
 import { IAuthController } from "./interfaces";
 import { LogDev, LogSuccessBg } from "../logs/logger";
 import { createUser } from "../domain/orm/User.orm";
 import { User } from "../domain/interfaces/user.interface";
-import { Auth } from "@/domain/interfaces/auth.interface";
+import { Auth } from "../domain/interfaces/auth.interface";
 
-import { registerUser, loginUser, logoutUser } from "../domain/orm/User.orm";
+import { loginUser, logoutUser } from "../domain/orm/User.orm";
+import { registerUser } from "../domain/orm/Auth.orm";
 
 @Route("/api/auth")
 @Tags("AuthController")
 export class AuthController implements IAuthController {
-     /**
-      * Create user
-      * @returns {any} Promise<any>
-      */
-     @Post("/register")
-     public async registerUser(@Query() user: User): Promise<any> {
-          let response: any = "";
+      /**
+       * Create user
+       * @returns {any} Promise<any>
+       */
+      @Post("/register")
+      public async registerUser(@Body() user: User): Promise<any> {
+            let response: any = "";
 
-          if (!user) return { message: "User is required" };
+            if (!user) return { message: "User is required" };
 
-          LogSuccessBg("POST=>/api/auth/register");
-          LogDev(JSON.stringify(user));
-          await createUser(user).then(() => {
-               response = { message: `User created successfully`, user: user };
-          });
+            LogSuccessBg("POST=>/api/auth/register");
+            LogDev(JSON.stringify(user));
 
-          return response;
-     }
+            await registerUser(user).then(() => {
+                  response = {
+                        message: `User created successfully`,
+                        user: user,
+                  };
+            });
 
-     /**
-      * Login user
-      * @returns {any} Promise<any> -> JWT
-      */
-     @Post("/login")
-     public async loginUser(@Query() auth: Auth): Promise<any> {
-          let response: any = "";
+            return response;
+      }
 
-          if (!auth) return { message: "Email and password required" };
+      /**
+       * Login user
+       * @returns {any} Promise<any> -> JWT
+       */
+      @Post("/login")
+      public async loginUser(@Body() auth: Auth): Promise<any> {
+            let response: any = "";
 
-          LogSuccessBg("POST=>/api/auth/login");
-          LogDev("Login " + JSON.stringify(auth.email));
+            if (!auth) return { message: "Email and password required" };
 
-          await loginUser(auth).then((r) => {
-               response = {
-                    message: `User logged successfully`,
-                    user: auth.email,
-                    token: "x",
-               };
-          });
+            LogSuccessBg("POST=>/api/auth/login");
+            LogDev("Login " + JSON.stringify(auth.email));
 
-          return response;
-     }
+            await loginUser(auth).then((r) => {
+                  response = {
+                        message: `User logged successfully`,
+                        user: auth.email,
+                        token: "x",
+                  };
+            });
 
-     /**
-      * Logout user
-      * @returns {any} Promise<any>
-      */
-     @Post("/logout")
-     public async logoutUser(@Query() auth: Auth): Promise<any> {
-          let response: any = "";
+            return response;
+      }
 
-          LogSuccessBg("POST=>/api/auth/logout");
-          LogDev("Logout " + JSON.stringify(auth.email));
+      /**
+       * Logout user
+       * @returns {any} Promise<any>
+       */
+      @Post("/logout")
+      public async logoutUser(@Body() auth: Auth): Promise<any> {
+            let response: any = "";
 
-          //   await loginUser(email, password).then(() => {
-          //        response = { message: `User created successfully`, user: user };
-          //   });
+            LogSuccessBg("POST=>/api/auth/logout");
+            LogDev("Logout " + JSON.stringify(auth.email));
 
-          return await response;
-     }
+            //   await loginUser(email, password).then(() => {
+            //        response = { message: `User created successfully`, user: user };
+            //   });
+
+            return await response;
+      }
 }
