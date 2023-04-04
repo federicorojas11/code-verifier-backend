@@ -49,6 +49,9 @@ KatasRouter.route("/")
             const chances: any = req?.query?.chances;
             if (chances) LogInfo(`Order by chances: ${chances}`);
 
+            const page: any = req?.query?.page;
+            if (page) LogInfo(`Pagination: ${page}`);
+
             const controller: KatasController = new KatasController();
 
             let response: any;
@@ -58,13 +61,15 @@ KatasRouter.route("/")
                   response = await controller.getKatas(
                         undefined,
                         filter,
-                        limit
+                        limit,
+                        page
                   );
             else if (valoration)
                   response = await controller.getKatas(
                         undefined,
                         filter,
                         limit,
+                        page,
                         valoration
                   );
             else if (chances)
@@ -72,14 +77,16 @@ KatasRouter.route("/")
                         undefined,
                         filter,
                         limit,
-                        undefined,
+                        page,
+                        valoration,
                         chances
                   );
             else
                   response = await controller.getKatas(
                         undefined,
                         undefined,
-                        limit
+                        limit,
+                        page
                   );
 
             return res.send(response);

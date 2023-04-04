@@ -11,7 +11,7 @@ export interface IGoodbyeController {
 }
 
 export interface IUsersController {
-      getUsers(id?: string): Promise<any>;
+      getUsers(page: number, limit: number, id?: string): Promise<any>;
       deleteUserById(id?: string): Promise<any>;
       createUser(user: User): Promise<any>;
       updateUserById(user: User, id: string): Promise<any>;

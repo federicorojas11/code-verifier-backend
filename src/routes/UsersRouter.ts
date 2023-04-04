@@ -40,10 +40,22 @@ usersRouter
       // GET
       .get(verifyToken, async (req: Request, res: Response) => {
             LogInfo(`Router: Users route GET`);
-            let id: any = req?.query?.id; // optional id
+
+            let id: any = req?.query?.id;
             LogInfo(`Query param id: ${id}`);
+
+            let page: any = req?.query?.page;
+            LogInfo(`Query param page: ${page}`);
+
+            let limit: any = req?.query?.limit;
+            LogInfo(`Query param limit: ${limit}`);
+
             const controller: UsersController = new UsersController();
-            const response: any = await controller.getUsers(id);
+            const response: any = await controller.getUsers(
+                  page || 1,
+                  limit || 10,
+                  id
+            );
             return res.status(200).send(response);
       })
       // DELETE

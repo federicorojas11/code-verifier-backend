@@ -1,7 +1,7 @@
 import { Body, Delete, Get, Post, Put, Query, Route, Tags } from "tsoa";
 import { BasicResponse } from "./types";
 import { IUsersController } from "./interfaces";
-import { LogDev, LogError, LogSuccessBg } from "../logs/logger";
+import { LogDev, LogError, LogInfo, LogSuccessBg } from "../logs/logger";
 import {
       createUser,
       deleteUserById,
@@ -19,17 +19,21 @@ export class UsersController implements IUsersController {
        * @returns {any} Promise<any>
        */
       @Get("/")
-      public async getUsers(@Query() id?: string): Promise<any> {
+      public async getUsers(
+            @Query() page?: number,
+            @Query() limit?: number,
+            @Query() id?: string
+      ): Promise<any> {
             let response: any = "";
 
             if (id) {
                   LogSuccessBg("GET=>/api/users/:id");
                   response = await getUserById(id);
-                  response.password = "";
             } else {
                   LogSuccessBg("GET=>/api/users");
-                  response = await GetAllUsers();
+                  response = await GetAllUsers(page, limit);
             }
+            LogInfo(response);
             return response;
       }
 

@@ -5,18 +5,44 @@ import { User } from "../../domain/interfaces/user.interface";
 import { Auth } from "../interfaces/auth.interface";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import { UserResponse } from "../types/UserResponse";
 
 // CRUD Requests
 
 /**
  * Method to obtain all users from collection "Users" in MongoDB
  */
-export const GetAllUsers = async (): Promise<any[] | undefined> => {
+export const GetAllUsers = async (
+      page: number | undefined,
+      limit: number | undefined
+): Promise<UserResponse | undefined> => {
       try {
             let userModel = userEntity();
             LogSuccess(`[ORM] get all users`);
+
+            let response: any = {};
+
             // Search all users
-            return await userModel.find();
+            await userModel
+
+                  .find()
+                  .select("name email age")
+                  .limit(limit ? limit : -1)
+                  .skip((page! - 1) * limit!)
+                  .exec()
+                  .then((users: User[]) => {
+                        response.users = users;
+                  });
+
+            // Count total document of users
+            await userModel.countDocuments().then((total) => {
+                  response.totalPages = Math.ceil(total / limit!);
+                  response.currentPage = page;
+            });
+
+            return response;
+
+            // return await userModel.find();
       } catch (error) {
             LogError(`[ORM ERROR] Getting all users: ${error}`);
       }
@@ -38,7 +64,8 @@ export const getUserById = async (userId: string): Promise<any | undefined> => {
             let userModel = userEntity();
             LogSuccess(`[ORM] Get user by id ${userId}`);
             // search user by ID
-            return await userModel.findById(userId);
+
+            return await userModel.findById(userId).select("name email age");
       } catch (error) {
             LogError(`[ORM ERROR] Getting user by id: ${error}`);
       }
