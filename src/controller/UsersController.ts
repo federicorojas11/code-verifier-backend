@@ -25,6 +25,7 @@ export class UsersController implements IUsersController {
             if (id) {
                   LogSuccessBg("GET=>/api/users/:id");
                   response = await getUserById(id);
+                  response.password = "";
             } else {
                   LogSuccessBg("GET=>/api/users");
                   response = await GetAllUsers();

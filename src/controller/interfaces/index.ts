@@ -28,4 +28,5 @@ export interface IAuthController {
       registerUser(user: User): Promise<any>;
       loginUser(auth: Auth): Promise<any>;
       logoutUser(auth: Auth): Promise<any>;
+      userData(token: string): Promise<any>;
 }

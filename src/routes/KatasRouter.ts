@@ -3,31 +3,35 @@ import { LogInfo } from "../logs/logger";
 import { BasicResponse } from "../controller/types";
 import { KatasController } from "../controller/KatasController";
 import { Kata } from "../domain/interfaces/katas.interface";
+import { verifyToken } from "../middlewares/verifyToken.middleware";
 
 // Router from express
 let KatasRouter = express.Router();
 
 // http://localhost:PORT/api/katas
 
-KatasRouter.route("/").post(async (req: Request, res: Response) => {
-      LogInfo(`Router: Katas route POST`);
-      const controller: KatasController = new KatasController();
-      let Kata: Kata = {
-            name: req.body.name,
-            level: req.body.level,
-            user: req.body.user,
-            description: req.body.description,
-            valoration: req.body.valoration,
-            chances: req.body.chances,
-      };
-      const response: BasicResponse = await controller.createKata(Kata);
-      return res.send(response);
-});
+KatasRouter.route("/").post(
+      verifyToken,
+      async (req: Request, res: Response) => {
+            LogInfo(`Router: Katas route POST`);
+            const controller: KatasController = new KatasController();
+            let Kata: Kata = {
+                  name: req.body.name,
+                  level: req.body.level,
+                  user: req.body.user,
+                  description: req.body.description,
+                  valoration: req.body.valoration,
+                  chances: req.body.chances,
+            };
+            const response: BasicResponse = await controller.createKata(Kata);
+            return res.send(response);
+      }
+);
 
 // http://localhost:8000/api/Katas || http://localhost:8000/api/Katas?id=64036794c0afbd2fed7d66d3
 KatasRouter.route("/")
       // GET
-      .get(async (req: Request, res: Response) => {
+      .get(verifyToken, async (req: Request, res: Response) => {
             LogInfo(`Router: Katas route GET`);
 
             const id: any = req?.query?.id; // optional id
@@ -91,7 +95,7 @@ KatasRouter.route("/")
       });
 
 // UPDATE
-KatasRouter.route("/").put(async (req: Request, res: Response) => {
+KatasRouter.route("/").put(verifyToken, async (req: Request, res: Response) => {
       LogInfo(`Router: Katas route PUT`);
 
       const controller: KatasController = new KatasController();

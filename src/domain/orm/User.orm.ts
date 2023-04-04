@@ -1,5 +1,5 @@
 import { userEntity } from "../entities/User.entity";
-import { LogError, LogSuccess } from "../../logs/logger";
+import { LogError, LogSuccess, LogWarning } from "../../logs/logger";
 import * as usersMock from "../../mock/people.json";
 import { User } from "../../domain/interfaces/user.interface";
 import { Auth } from "../interfaces/auth.interface";
@@ -90,45 +90,6 @@ export const updateUser = async (
             }); // update user
       } catch (error) {
             LogError(`[ORM ERROR] Updating user: ${error}`);
-      }
-};
-
-// Login user
-export const loginUser = async (auth: Auth): Promise<any | undefined> => {
-      try {
-            LogSuccess(`[ORM] login user ${JSON.stringify(auth.email)}`);
-            let userModel = userEntity();
-
-            return await userModel.findOne(
-                  {
-                        email: auth.email,
-                  },
-                  (err: any, user: User) => {
-                        if (err) {
-                              // Error 500
-                        }
-                        if (!user) {
-                              // Error 404
-                        }
-
-                        let validPassword = bcrypt.compareSync(
-                              auth.password,
-                              user.password!
-                        );
-                        if (!validPassword) {
-                              // Error 401
-                        }
-
-                        // Create JWT
-                        let token = jwt.sign({ email: user.email }, "", {
-                              expiresIn: "12hs",
-                        });
-
-                        return token;
-                  }
-            );
-      } catch (error) {
-            LogError(`[ORM ERROR] Login user: ${error}`);
       }
 };
 
