@@ -54,7 +54,7 @@ export const loginUser = async (auth: Auth): Promise<any | undefined> => {
 
             // Generate jwt
             token = jwt.sign({ email: userFound!.email }, secret, {
-                  expiresIn: "12h",
+                  expiresIn: "72h",
             });
 
             return {

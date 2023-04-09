@@ -3,16 +3,18 @@ import { Kata } from "../interfaces/katas.interface";
 
 export const katasEntity = () => {
       let katasSchema = new mongoose.Schema({
-            name: String,
-            description: String,
-            level: Number,
-            category: String,
-            user: String,
-            date: Date,
-            valoration: Number,
-            chances: Number,
-            participants: Array,
+            name: { type: String, required: true },
+            description: { type: String, required: true },
+            level: { type: Number, required: true },
+            category: { type: String, required: true },
+            user: { type: String, required: true },
+            date: { type: Date, required: false },
+            valoration: { type: Number, required: true },
+            chances: { type: Number, required: true },
+            participants: { type: Array, required: true },
       });
 
-      return mongoose.model("Katas", katasSchema);
+      return (
+            mongoose.models.katas || mongoose.model<Kata>("katas", katasSchema)
+      );
 };

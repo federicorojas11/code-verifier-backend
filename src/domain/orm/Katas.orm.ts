@@ -120,7 +120,7 @@ export const deletekataById = async (
 export const createKata = async (kata: any): Promise<any | undefined> => {
       try {
             LogSuccess(`[ORM] create kata ${JSON.stringify(kata)}`);
-            return await katasModel.create({ kata }); // create
+            return await katasModel.create({ ...kata }); // create
       } catch (error) {
             LogError(`[ORM ERROR] Creating kata: ${error}`);
       }
