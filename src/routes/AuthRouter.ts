@@ -7,16 +7,11 @@ import bcrypt from "bcrypt";
 import { AuthController } from "../controller/AuthController";
 import { Auth } from "../domain/interfaces/auth.interface";
 
-// Body Parser (read body from req)
-import bodyParser from "body-parser";
-
 // Middleware
 import { verifyToken } from "../middlewares/verifyToken.middleware";
 
 // Router from express
 let authRouter = express.Router();
-authRouter.use(bodyParser.json()); // for parsing application/json
-authRouter.use(bodyParser.urlencoded({ extended: true }));
 
 // http://localhost:PORT/api/auth/...
 

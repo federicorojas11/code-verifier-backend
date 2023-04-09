@@ -11,11 +11,16 @@ import katasRouter from "./KatasRouter";
 import AuthRouter from "./AuthRouter";
 import { LogInfo } from "../logs/logger";
 
+// Body Parser (read body from req)
+import bodyParser from "body-parser";
+
 // Server instance
 let server = express();
 
 // Router instance
 let rootRouter = express.Router();
+rootRouter.use(bodyParser.json()); // for parsing application/json
+rootRouter.use(bodyParser.urlencoded({ extended: true }));
 
 // Activate for request to http://localhost:8000/api
 rootRouter.get("/", (req: any, res: any) => {

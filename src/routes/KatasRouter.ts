@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import { LogInfo } from "../logs/logger";
 import { BasicResponse } from "../controller/types";
 import { KatasController } from "../controller/KatasController";
-import { Kata } from "../domain/interfaces/katas.interface";
+import { Kata, KataCategory } from "../domain/interfaces/katas.interface";
 import { verifyToken } from "../middlewares/verifyToken.middleware";
 
 // Router from express
@@ -15,15 +15,37 @@ KatasRouter.route("/").post(
       async (req: Request, res: Response) => {
             LogInfo(`Router: Katas route POST`);
             const controller: KatasController = new KatasController();
+
+            let {
+                  name,
+                  level,
+                  category,
+                  user,
+                  description,
+                  valoration,
+                  chances,
+                  participants,
+            } = req.body;
+
+            if (!(name && level && user)) {
+                  return res
+                        .status(400)
+                        .send({ message: "Name, level and user are required" });
+            }
+
             let Kata: Kata = {
-                  name: req.body.name,
-                  level: req.body.level,
-                  user: req.body.user,
-                  description: req.body.description,
-                  valoration: req.body.valoration,
-                  chances: req.body.chances,
+                  name: name,
+                  level: level,
+                  category: category || KataCategory.BASIC,
+                  user: user,
+                  description: description || "",
+                  valoration: valoration || 1,
+                  chances: chances || 1,
+                  participants: participants || [],
             };
+
             const response: BasicResponse = await controller.createKata(Kata);
+
             return res.send(response);
       }
 );
@@ -109,10 +131,12 @@ KatasRouter.route("/").put(verifyToken, async (req: Request, res: Response) => {
       let Kata: Kata = {
             name: req.body.name,
             level: req.body.level,
+            category: req.body.category,
             user: req.body.user,
             description: req.body.description,
             valoration: req.body.valoration,
             chances: req.body.chances,
+            participants: req.body.participants,
       };
 
       let id = req?.query?.id;
