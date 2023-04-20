@@ -32,7 +32,7 @@ export const verifyToken = (
       jwt.verify(token, secret, (err: any, decoded: any) => {
             if (err) {
                   return res.status(500).send({
-                        auth: "not allowed",
+                        auth: "Token expired or invalid.",
                         message: "Request not allowed!",
                   });
             }

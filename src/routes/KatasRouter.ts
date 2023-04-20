@@ -8,6 +8,12 @@ import { verifyToken } from "../middlewares/verifyToken.middleware";
 // Router from express
 let KatasRouter = express.Router();
 
+// Body Parser (read body from req)
+import bodyParser from "body-parser";
+// Router instance
+KatasRouter.use(bodyParser.json()); // for parsing application/json
+KatasRouter.use(bodyParser.urlencoded({ extended: true }));
+
 // http://localhost:PORT/api/katas
 
 KatasRouter.route("/").post(

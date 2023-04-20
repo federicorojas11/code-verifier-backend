@@ -11,12 +11,11 @@ import katasRouter from "./KatasRouter";
 import AuthRouter from "./AuthRouter";
 import { LogInfo } from "../logs/logger";
 
-// Body Parser (read body from req)
-import bodyParser from "body-parser";
-
 // Server instance
 let server = express();
 
+// Body Parser (read body from req)
+import bodyParser from "body-parser";
 // Router instance
 let rootRouter = express.Router();
 rootRouter.use(bodyParser.json()); // for parsing application/json
