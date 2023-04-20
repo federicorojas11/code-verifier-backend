@@ -1,11 +1,13 @@
 import { userEntity } from "../entities/User.entity";
-import { LogError, LogSuccess, LogWarning } from "../../logs/logger";
+import { LogError, LogInfo, LogSuccess, LogWarning } from "../../logs/logger";
 import * as usersMock from "../../mock/people.json";
 import { User } from "../../domain/interfaces/user.interface";
 import { Auth } from "../interfaces/auth.interface";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { UserResponse } from "../types/UserResponse";
+import { katasEntity } from "../entities/Katas.entity";
+import { Kata } from "../interfaces/katas.interface";
 
 // CRUD Requests
 
@@ -24,10 +26,9 @@ export const GetAllUsers = async (
 
             // Search all users
             await userModel
-
                   .find()
-                  .select("name email age")
-                  .limit(limit ? limit : -1)
+                  .select("name email age katas")
+                  .limit(limit ? limit : 999)
                   .skip((page! - 1) * limit!)
                   .exec()
                   .then((users: User[]) => {
@@ -122,3 +123,54 @@ export const updateUser = async (
 
 // Logout user
 export const logoutUser = async (): Promise<any | undefined> => {};
+
+/**
+ * Method to obtain all users from collection "Users" in MongoDB
+ */
+export const GetKatasFromUser = async (
+      id: string,
+      page: number | undefined,
+      limit: number | undefined
+): Promise<UserResponse | undefined> => {
+      try {
+            let userModel = userEntity();
+            let katasModel = katasEntity();
+
+            LogSuccess(`[ORM] get all katas from user`);
+
+            let response: any = {};
+
+            await userModel
+                  .findById(id)
+                  .select("name email age")
+                  .limit(limit ? limit : -1)
+                  .skip((page! - 1) * limit!)
+                  .exec()
+                  .then((user: User) => {
+                        LogInfo(`USER FOUND ${user}`);
+                        katasModel
+                              .find({ _id: { $in: user._id! } })
+                              .then((katas: Kata[]) => {
+                                    console.log("katas::", katas);
+                                    response.user = user.name;
+                                    response.email = user.email;
+                                    response.katas = katas;
+                              });
+                  })
+                  .catch((error) => {
+                        LogError(`[ORM ERROR] find user error: ${error}`);
+                  });
+
+            // Count total document of users
+            await userModel.countDocuments().then((total) => {
+                  response.totalPages = Math.ceil(total / limit!);
+                  response.currentPage = page;
+            });
+
+            return response;
+
+            // return await userModel.find();
+      } catch (error) {
+            LogError(`[ORM ERROR] Obtain katas from user: ${error}`);
+      }
+};

@@ -29,6 +29,7 @@ usersRouter
                   email: req?.body?.email,
                   age: req?.body?.age,
                   password: hashed,
+                  katas: [],
             };
             const response: BasicResponse = await controller.createUser(user);
             return res.status(201).send(response);
@@ -78,6 +79,7 @@ usersRouter.route("/").put(verifyToken, async (req: Request, res: Response) => {
             email: req?.query?.email as string,
             age: req?.query?.age as string,
             password: req?.body?.password as string,
+            katas: req?.body?.katas as any,
       };
       let id = req?.query?.id;
 
@@ -94,5 +96,20 @@ usersRouter.route("/").put(verifyToken, async (req: Request, res: Response) => {
                   message: "Invalid query param. User id is required.",
             });
 });
+
+// http://localhost:8000/api/users/katas || http://localhost:8000/api/users/katas?id=64036794c0afbd2fed7d66d3
+usersRouter
+      .route("/katas")
+      // GET
+      .get(verifyToken, async (req: Request, res: Response) => {
+            LogInfo(`Router: Users route GET Katas`);
+
+            let id: any = req?.query?.id;
+            LogInfo(`Query param id: ${id}`);
+
+            const controller: UsersController = new UsersController();
+            const response: any = await controller.getKatas(id);
+            return res.status(200).send(response);
+      });
 
 export default usersRouter;

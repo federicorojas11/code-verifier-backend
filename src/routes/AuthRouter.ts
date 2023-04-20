@@ -42,6 +42,7 @@ authRouter.route("/register").post(async (req: Request, res: Response) => {
             email: email,
             age: age,
             password: hashed,
+            katas: [],
       };
       const response: BasicResponse = await controller.registerUser(user);
       return res.status(201).send(response);

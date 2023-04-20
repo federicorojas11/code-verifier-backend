@@ -12,12 +12,14 @@ export interface IGoodbyeController {
 
 export interface IUsersController {
       getUsers(page: number, limit: number, id?: string): Promise<any>;
+      getKatas(id: string, page: number, limit: number): Promise<any>;
       deleteUserById(id?: string): Promise<any>;
       createUser(user: User): Promise<any>;
       updateUserById(user: User, id: string): Promise<any>;
 }
 
 export interface IKatasController {
+      getKatas(id?: string): Promise<any>;
       getKatas(id?: string): Promise<any>;
       deleteKataById(id?: string): Promise<any>;
       createKata(kata: any): Promise<any>;

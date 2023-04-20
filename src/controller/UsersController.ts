@@ -6,6 +6,7 @@ import {
       createUser,
       deleteUserById,
       GetAllUsers,
+      GetKatasFromUser,
       getUserById,
       updateUser,
 } from "../domain/orm/User.orm";
@@ -14,6 +15,31 @@ import { User } from "../domain/interfaces/user.interface";
 @Route("/api/users")
 @Tags("UsersController")
 export class UsersController implements IUsersController {
+      /**
+       * Get katas
+       * @returns {any} Promise<any>
+       */
+      @Get("/katas") // /users/katas?id=XXXXXX
+      public async getKatas(
+            @Query() id: string,
+            @Query() page?: number,
+            @Query() limit?: number
+      ): Promise<any> {
+            let response: any = "";
+
+            if (id) {
+                  LogSuccessBg("GET=>/api/users/katas?id=XXXXXX");
+                  response = await GetKatasFromUser(id, page, limit);
+            } else {
+                  LogError("CONTROLLER [id not found]");
+                  response = {
+                        message: "Please provide an user ID",
+                        status: 400,
+                  };
+            }
+            return response;
+      }
+
       /**
        * Get users
        * @returns {any} Promise<any>
