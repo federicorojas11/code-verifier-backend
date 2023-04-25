@@ -23,13 +23,25 @@ export class UsersController implements IUsersController {
       public async getKatas(
             @Query() id: string,
             @Query() page?: number,
-            @Query() limit?: number
+            @Query() limit?: number,
+            @Query() orderByLevel?: number,
+            @Query() filterByLevel?: number,
+            @Query() orderByValoration?: number,
+            @Query() filterByValoration?: number
       ): Promise<any> {
             let response: any = "";
 
             if (id) {
                   LogSuccessBg("GET=>/api/users/katas?id=XXXXXX");
-                  response = await GetKatasFromUser(id, page, limit);
+                  response = await GetKatasFromUser(
+                        id,
+                        page,
+                        limit,
+                        orderByLevel,
+                        filterByLevel,
+                        orderByValoration,
+                        filterByValoration
+                  );
             } else {
                   LogError("CONTROLLER [id not found]");
                   response = {

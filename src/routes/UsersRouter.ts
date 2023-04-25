@@ -105,10 +105,44 @@ usersRouter
             LogInfo(`Router: Users route GET Katas`);
 
             let id: any = req?.query?.id;
-            LogInfo(`Query param id: ${id}`);
+            if (id) LogInfo(`Query param id: ${id}`);
+
+            let page: any = req?.query?.page;
+            LogInfo(`Query param page: ${page}`);
+
+            let limit: any = req?.query?.limit;
+            LogInfo(`Query param limit: ${limit}`);
+
+            let orderByLevel: any = req?.query?.orderbylevel;
+            if (orderByLevel)
+                  LogInfo(`Query param orderbylevel: ${orderByLevel}`);
+
+            let filterByLevel: any = req?.query?.filterbylevel;
+            if (filterByLevel)
+                  LogInfo(`Query param filterbylevel: ${filterByLevel}`);
+
+            let orderByValoration: any = req?.query?.orderbyvaloration;
+            if (orderByValoration)
+                  LogInfo(
+                        `Query param orderbyvaloration: ${orderByValoration}`
+                  );
+
+            let filterByValoration: any = req?.query?.filterbyvaloration;
+            if (filterByValoration)
+                  LogInfo(
+                        `Query param filterbyvaloration: ${filterByValoration}`
+                  );
 
             const controller: UsersController = new UsersController();
-            const response: any = await controller.getKatas(id);
+            const response: any = await controller.getKatas(
+                  id,
+                  page,
+                  limit,
+                  orderByLevel,
+                  filterByLevel,
+                  orderByValoration,
+                  filterByValoration
+            );
             return res.status(200).send(response);
       });
 

@@ -1,5 +1,11 @@
 import { userEntity } from "../entities/User.entity";
-import { LogError, LogInfo, LogSuccess, LogWarning } from "../../logs/logger";
+import {
+      LogError,
+      LogInfo,
+      LogSuccess,
+      LogSuccessBg,
+      LogWarning,
+} from "../../logs/logger";
 import * as usersMock from "../../mock/people.json";
 import { User } from "../../domain/interfaces/user.interface";
 import { Auth } from "../interfaces/auth.interface";
@@ -130,7 +136,11 @@ export const logoutUser = async (): Promise<any | undefined> => {};
 export const GetKatasFromUser = async (
       id: string,
       page: number | undefined,
-      limit: number | undefined
+      limit: number | undefined,
+      orderByLevel: number | undefined,
+      filterByLevel: number | undefined,
+      orderByValoration: number | undefined,
+      filterByValoration: number | undefined
 ): Promise<UserResponse | undefined> => {
       try {
             let userModel = userEntity();
@@ -142,18 +152,48 @@ export const GetKatasFromUser = async (
 
             await userModel
                   .findById(id)
-                  .select("name email age")
+                  .select("name email age katas")
                   .limit(limit ? limit : -1)
                   .skip((page! - 1) * limit!)
                   .exec()
-                  .then((user: User) => {
+                  .then(async (user: User) => {
                         LogInfo(`USER FOUND ${user}`);
-                        katasModel
-                              .find({ _id: { $in: user._id! } })
+
+                        let filterCriteria: {} = {
+                              _id: { $in: user.katas! },
+                        };
+
+                        if (filterByValoration)
+                              filterCriteria = {
+                                    ...filterCriteria,
+                                    valoration: filterByValoration,
+                              };
+
+                        if (filterByLevel)
+                              filterCriteria = {
+                                    ...filterCriteria,
+                                    level: filterByLevel,
+                              };
+
+                        let sortCriteria = {};
+
+                        if (orderByValoration)
+                              sortCriteria = {
+                                    ...sortCriteria,
+                                    valoration: orderByValoration,
+                              };
+
+                        if (orderByLevel)
+                              sortCriteria = {
+                                    ...sortCriteria,
+                                    level: orderByLevel,
+                              };
+
+                        return await katasModel
+                              .find(filterCriteria)
+                              .sort(sortCriteria)
                               .then((katas: Kata[]) => {
-                                    console.log("katas::", katas);
-                                    response.user = user.name;
-                                    response.email = user.email;
+                                    response.user = user;
                                     response.katas = katas;
                               });
                   })
@@ -168,8 +208,6 @@ export const GetKatasFromUser = async (
             });
 
             return response;
-
-            // return await userModel.find();
       } catch (error) {
             LogError(`[ORM ERROR] Obtain katas from user: ${error}`);
       }
