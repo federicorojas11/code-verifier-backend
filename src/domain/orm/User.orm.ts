@@ -237,13 +237,22 @@ export const addValorationKata = async (
       kataId: string
 ): Promise<any | undefined> => {
       try {
-            let response = await katasModel.findByIdAndUpdate(kataId, {
-                  valoration: { $push: valoration },
+            const kata = await katasModel.findByIdAndUpdate(kataId, {
+                  $push: { valoration: valoration },
             }); // update user
 
-            LogSuccess(
-                  `[ORM] edit kata valoration ${JSON.stringify(response)}`
-            );
+            // * set updated valoration response
+            let valorations = kata.valoration;
+            valorations.push(valoration);
+
+            // * assign to new response
+            let kataBuffer = { ...kata }._doc;
+            const response = {
+                  ...kataBuffer,
+                  valoration: valorations,
+            };
+
+            LogSuccess(`[ORM] edited kata valoration ${JSON.stringify(kata)}`);
 
             return response;
       } catch (error) {

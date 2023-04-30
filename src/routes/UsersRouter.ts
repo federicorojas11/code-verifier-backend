@@ -189,11 +189,6 @@ usersRouter
 
             let { id, valoration } = req.body;
 
-            let valorationObject = {
-                  valoration: valoration,
-                  id: id,
-            };
-
             const controller: UsersController = new UsersController();
             const response: any = await controller.valorationKata(
                   valoration,

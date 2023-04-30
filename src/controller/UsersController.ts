@@ -184,7 +184,7 @@ export class UsersController implements IUsersController {
             LogSuccessBg("POST=>/api/kata");
             await addValorationKata(valoration, kataId).then((r) => {
                   response = {
-                        message: `Kata created successfully`,
+                        message: `Kata valoration updated`,
                         kata: r,
                   };
             });
