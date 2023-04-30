@@ -158,7 +158,6 @@ usersRouter
                   name,
                   level,
                   category,
-                  user,
                   description,
                   valoration,
                   chances,
@@ -169,11 +168,11 @@ usersRouter
                   name: name,
                   level: level,
                   category: category || KataCategory.BASIC,
-                  user: user,
                   description: description || "",
                   valoration: valoration || 1,
                   chances: chances || 1,
                   participants: participants || [],
+                  creator: req._id, // set user that created this kata
             };
 
             const controller: UsersController = new UsersController();

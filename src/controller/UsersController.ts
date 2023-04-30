@@ -159,7 +159,7 @@ export class UsersController implements IUsersController {
             let response: any = "";
 
             LogSuccessBg("POST=>/api/kata");
-            await createUserKata(kata).then(() => {
+            await createUserKata(kata).then((r) => {
                   response = {
                         message: `Kata created successfully`,
                         kata: kata,

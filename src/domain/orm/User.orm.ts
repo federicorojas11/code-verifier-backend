@@ -217,9 +217,28 @@ export const GetKatasFromUser = async (
 export const createUserKata = async (kata: any): Promise<any | undefined> => {
       try {
             let katasModel = katasEntity();
+            let userModel = userEntity();
 
-            LogSuccess(`[ORM] create kata ${JSON.stringify(kata)}`);
-            return await katasModel.create({ ...kata, createdBy: "" }); // create
+            let response: string | Promise<any> = "";
+
+            let createKata = await katasModel
+                  .create({ ...kata }) // create
+                  .then(async (_kata) => {
+                        let updateUser = await userModel.updateOne(
+                              { _id: kata.creator },
+                              { $push: { katas: _kata._id } }
+                        );
+                        LogSuccess(
+                              `[ORM] User update: ${JSON.stringify(updateUser)}`
+                        );
+
+                        return _kata;
+                  });
+
+            LogSuccess(`[ORM] create kata ${JSON.stringify(createKata)}`);
+            response = Promise.all([createKata, updateUser]);
+
+            return await response;
       } catch (error) {
             LogError(`[ORM ERROR] Creating kata: ${error}`);
       }

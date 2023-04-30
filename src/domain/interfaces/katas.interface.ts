@@ -3,12 +3,11 @@ export interface Kata {
       name: string;
       level: number;
       category: KataCategory;
-      user: string;
       description: string;
       valoration: number;
       chances: number;
       participants: string[];
-      createdBy?: string;
+      creator?: string | Record<string, string>;
 }
 
 export enum KataCategory {
