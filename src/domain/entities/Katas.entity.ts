@@ -8,7 +8,7 @@ export const katasEntity = () => {
             level: { type: Number, required: true },
             category: { type: String, required: true },
             date: { type: Date, required: false },
-            valoration: { type: Number, required: true },
+            valoration: { type: Array, required: true },
             chances: { type: Number, required: true },
             participants: { type: Array, required: true },
             creator: { type: String, required: true },

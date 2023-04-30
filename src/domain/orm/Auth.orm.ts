@@ -43,7 +43,7 @@ export const loginUser = async (auth: Auth): Promise<any | undefined> => {
 
             let validPassword = bcrypt.compareSync(
                   auth.password,
-                  userFound!.password
+                  userFound!.password!
             );
 
             if (!validPassword) {
@@ -62,8 +62,16 @@ export const loginUser = async (auth: Auth): Promise<any | undefined> => {
                   }
             );
 
+            // remove password from response
+
+            //* create a mongo user buffer
+            let userBuffer = ({ ...userFound } as any)._doc;
+
+            //* delete the copy password.
+            delete userBuffer.password;
+
             return {
-                  user: userFound,
+                  user: userBuffer,
                   token: token,
             };
       } catch (error) {

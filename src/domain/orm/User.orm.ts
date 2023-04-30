@@ -8,12 +8,12 @@ import {
 } from "../../logs/logger";
 import * as usersMock from "../../mock/people.json";
 import { User } from "../../domain/interfaces/user.interface";
-import { Auth } from "../interfaces/auth.interface";
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import { UserResponse } from "../types/UserResponse";
 import { katasEntity } from "../entities/Katas.entity";
 import { Kata } from "../interfaces/katas.interface";
+
+const katasModel = katasEntity();
+const userModel = userEntity();
 
 // CRUD Requests
 
@@ -25,7 +25,6 @@ export const GetAllUsers = async (
       limit: number | undefined
 ): Promise<UserResponse | undefined> => {
       try {
-            let userModel = userEntity();
             LogSuccess(`[ORM] get all users`);
 
             let response: any = {};
@@ -57,8 +56,6 @@ export const GetAllUsers = async (
 
 export const postAllUsersMock = async () => {
       try {
-            let userModel = userEntity();
-
             return await userModel.insertMany(usersMock);
       } catch (error) {
             LogError(`[ORM ERROR] Post users mock: ${error}`);
@@ -68,7 +65,6 @@ export const postAllUsersMock = async () => {
 // Get User by ID
 export const getUserById = async (userId: string): Promise<any | undefined> => {
       try {
-            let userModel = userEntity();
             LogSuccess(`[ORM] Get user by id ${userId}`);
             // search user by ID
 
@@ -84,7 +80,6 @@ export const deleteUserById = async (
 ): Promise<any | undefined> => {
       try {
             LogSuccess(`[ORM] Deleting user by id: ${userId}`);
-            let userModel = userEntity();
             return await userModel.deleteOne({ _id: userId }); // delete user
       } catch (error) {
             LogError(`[ORM ERROR] Deleting user by id: ${error}`);
@@ -95,7 +90,6 @@ export const deleteUserById = async (
 export const createUser = async (user: User): Promise<any | undefined> => {
       try {
             LogSuccess(`[ORM] create user ${JSON.stringify(user)}`);
-            let userModel = userEntity();
 
             return await userModel.create({
                   name: user.name,
@@ -115,7 +109,6 @@ export const updateUser = async (
 ): Promise<any | undefined> => {
       try {
             LogSuccess(`[ORM] edit user ${JSON.stringify(user)}`);
-            let userModel = userEntity();
 
             return await userModel.findByIdAndUpdate(id, {
                   name: user.name,
@@ -143,9 +136,6 @@ export const GetKatasFromUser = async (
       filterByValoration: number | undefined
 ): Promise<UserResponse | undefined> => {
       try {
-            let userModel = userEntity();
-            let katasModel = katasEntity();
-
             LogSuccess(`[ORM] get all katas from user`);
 
             let response: any = {};
@@ -216,9 +206,6 @@ export const GetKatasFromUser = async (
 // Create New Kata from User
 export const createUserKata = async (kata: any): Promise<any | undefined> => {
       try {
-            let katasModel = katasEntity();
-            let userModel = userEntity();
-
             let response: string | Promise<any> = "";
 
             let createKata = await katasModel
@@ -241,5 +228,25 @@ export const createUserKata = async (kata: any): Promise<any | undefined> => {
             return await response;
       } catch (error) {
             LogError(`[ORM ERROR] Creating kata: ${error}`);
+      }
+};
+
+// Valorate kata
+export const addValorationKata = async (
+      valoration: number,
+      kataId: string
+): Promise<any | undefined> => {
+      try {
+            let response = await katasModel.findByIdAndUpdate(kataId, {
+                  valoration: { $push: valoration },
+            }); // update user
+
+            LogSuccess(
+                  `[ORM] edit kata valoration ${JSON.stringify(response)}`
+            );
+
+            return response;
+      } catch (error) {
+            LogError(`[ORM ERROR] Updating user: ${error}`);
       }
 };

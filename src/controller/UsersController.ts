@@ -4,12 +4,13 @@ import { IUsersController } from "./interfaces";
 import { LogDev, LogError, LogInfo, LogSuccessBg } from "../logs/logger";
 import {
       createUser,
-      createUserKata,
+      addValorationKata,
       deleteUserById,
       GetAllUsers,
       GetKatasFromUser,
       getUserById,
       updateUser,
+      createUserKata,
 } from "../domain/orm/User.orm";
 import { User } from "../domain/interfaces/user.interface";
 import { Kata } from "../domain/interfaces/katas.interface";
@@ -163,6 +164,28 @@ export class UsersController implements IUsersController {
                   response = {
                         message: `Kata created successfully`,
                         kata: kata,
+                  };
+            });
+
+            return response;
+      }
+
+      /**
+       * Create kata valoration
+       * @returns {any} Promise<any>
+       */
+      @Post("/")
+      public async valorationKata(
+            @Query() valoration: number,
+            @Query() kataId: string
+      ): Promise<any> {
+            let response: any = "";
+
+            LogSuccessBg("POST=>/api/kata");
+            await addValorationKata(valoration, kataId).then((r) => {
+                  response = {
+                        message: `Kata created successfully`,
+                        kata: r,
                   };
             });
 

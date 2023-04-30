@@ -169,7 +169,7 @@ usersRouter
                   level: level,
                   category: category || KataCategory.BASIC,
                   description: description || "",
-                  valoration: valoration || 1,
+                  valoration: valoration || [1],
                   chances: chances || 1,
                   participants: participants || [],
                   creator: req._id, // set user that created this kata
@@ -177,6 +177,28 @@ usersRouter
 
             const controller: UsersController = new UsersController();
             const response: any = await controller.createKata(Kata);
+            return res.status(200).send(response);
+      });
+
+// http://localhost:8000/api/users/katas/valorate
+usersRouter
+      .route("/katas/valorate")
+      // POST
+      .post(verifyToken, async (req: Request, res: Response) => {
+            LogInfo(`Router: Users route POST new valoration for kata`);
+
+            let { id, valoration } = req.body;
+
+            let valorationObject = {
+                  valoration: valoration,
+                  id: id,
+            };
+
+            const controller: UsersController = new UsersController();
+            const response: any = await controller.valorationKata(
+                  valoration,
+                  id
+            );
             return res.status(200).send(response);
       });
 

@@ -4,7 +4,7 @@ export interface Kata {
       level: number;
       category: KataCategory;
       description: string;
-      valoration: number;
+      valoration: number[];
       chances: number;
       participants: string[];
       creator?: string | Record<string, string>;
