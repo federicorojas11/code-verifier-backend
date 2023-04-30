@@ -51,11 +51,16 @@ export const loginUser = async (auth: Auth): Promise<any | undefined> => {
                   LogWarning(`[ORM] Password not valid`);
                   throw new Error(`[ORM] Password not valid`);
             }
+            console.log(`userFound!.email: ${userFound!.email}`);
 
             // Generate jwt
-            token = jwt.sign({ email: userFound!.email }, secret, {
-                  expiresIn: "720h",
-            });
+            token = jwt.sign(
+                  { email: userFound?.email, _id: userFound?._id },
+                  secret,
+                  {
+                        expiresIn: "720h",
+                  }
+            );
 
             return {
                   user: userFound,

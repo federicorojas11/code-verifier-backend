@@ -4,6 +4,7 @@ import { IUsersController } from "./interfaces";
 import { LogDev, LogError, LogInfo, LogSuccessBg } from "../logs/logger";
 import {
       createUser,
+      createUserKata,
       deleteUserById,
       GetAllUsers,
       GetKatasFromUser,
@@ -11,6 +12,7 @@ import {
       updateUser,
 } from "../domain/orm/User.orm";
 import { User } from "../domain/interfaces/user.interface";
+import { Kata } from "../domain/interfaces/katas.interface";
 
 @Route("/api/users")
 @Tags("UsersController")
@@ -145,6 +147,25 @@ export class UsersController implements IUsersController {
                         status: 400,
                   };
             }
+            return response;
+      }
+
+      /**
+       * Create kata
+       * @returns {any} Promise<any>
+       */
+      @Post("/")
+      public async createKata(@Query() kata: Kata): Promise<any> {
+            let response: any = "";
+
+            LogSuccessBg("POST=>/api/kata");
+            await createUserKata(kata).then(() => {
+                  response = {
+                        message: `Kata created successfully`,
+                        kata: kata,
+                  };
+            });
+
             return response;
       }
 }

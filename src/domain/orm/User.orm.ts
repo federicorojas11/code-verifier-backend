@@ -212,3 +212,15 @@ export const GetKatasFromUser = async (
             LogError(`[ORM ERROR] Obtain katas from user: ${error}`);
       }
 };
+
+// Create New Kata from User
+export const createUserKata = async (kata: any): Promise<any | undefined> => {
+      try {
+            let katasModel = katasEntity();
+
+            LogSuccess(`[ORM] create kata ${JSON.stringify(kata)}`);
+            return await katasModel.create({ ...kata, createdBy: "" }); // create
+      } catch (error) {
+            LogError(`[ORM ERROR] Creating kata: ${error}`);
+      }
+};

@@ -8,6 +8,7 @@ import bcrypt from "bcrypt";
 
 // Implement body read from request
 import bodyParser from "body-parser";
+import { Kata, KataCategory } from "../domain/interfaces/katas.interface";
 let jsonParser = bodyParser.json();
 
 // Router from express
@@ -143,6 +144,40 @@ usersRouter
                   orderByValoration,
                   filterByValoration
             );
+            return res.status(200).send(response);
+      });
+
+// http://localhost:8000/api/users/katas
+usersRouter
+      .route("/katas")
+      // POST
+      .post(verifyToken, async (req: Request, res: Response) => {
+            LogInfo(`Router: Users route POST Katas`);
+
+            let {
+                  name,
+                  level,
+                  category,
+                  user,
+                  description,
+                  valoration,
+                  chances,
+                  participants,
+            } = req.body;
+
+            let Kata: Kata = {
+                  name: name,
+                  level: level,
+                  category: category || KataCategory.BASIC,
+                  user: user,
+                  description: description || "",
+                  valoration: valoration || 1,
+                  chances: chances || 1,
+                  participants: participants || [],
+            };
+
+            const controller: UsersController = new UsersController();
+            const response: any = await controller.createKata(Kata);
             return res.status(200).send(response);
       });
 

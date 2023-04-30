@@ -36,6 +36,10 @@ export const verifyToken = (
                         message: "Request not allowed!",
                   });
             }
+            console.log(`decoded: ${JSON.stringify(decoded)}`);
+
+            // add user id to req object
+            req._id = decoded._id;
 
             // Execute next function => Protected Routes will be executed
             next();

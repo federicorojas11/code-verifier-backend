@@ -8,6 +8,7 @@ export interface Kata {
       valoration: number;
       chances: number;
       participants: string[];
+      createdBy?: string;
 }
 
 export enum KataCategory {
