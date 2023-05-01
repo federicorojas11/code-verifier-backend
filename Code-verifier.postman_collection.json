@@ -1,0 +1,672 @@
+{
+	"info": {
+		"_postman_id": "826ca41e-ff3a-4a11-bfa2-1749900baee1",
+		"name": "Code-verifier",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register user",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/users?id=64036794c0afbd2fed7d66de",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "64036794c0afbd2fed7d66de"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/users?id=64036794c0afbd2fed7d66de",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "64036794c0afbd2fed7d66de"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user by id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/users?id=64036794c0afbd2fed7d66de",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "64036794c0afbd2fed7d66de"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"test@email.com\",\n    \"password\":\"pass\" \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"creating22\",\n    \"email\":\"my@email.com\",\n    \"age\":35,\n    \"password\":\"pass\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/users?movie=superman",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "movie",
+									"value": "superman"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get my user data",
+					"request": {
+						"auth": {
+							"type": "jwt",
+							"jwt": [
+								{
+									"key": "secret",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwiaWF0IjoxNjgwNTc0MTk1LCJleHAiOjE2ODA2MTczOTV9.F4noIV_DRSUtVS3fpIijLpq7SJKAMEGoG6FoMNSODgI",
+									"type": "string"
+								},
+								{
+									"key": "algorithm",
+									"value": "HS256",
+									"type": "string"
+								},
+								{
+									"key": "isSecretBase64Encoded",
+									"value": false,
+									"type": "boolean"
+								},
+								{
+									"key": "payload",
+									"value": "{}",
+									"type": "string"
+								},
+								{
+									"key": "addTokenTo",
+									"value": "header",
+									"type": "string"
+								},
+								{
+									"key": "headerPrefix",
+									"value": "Bearer",
+									"type": "string"
+								},
+								{
+									"key": "queryParamKey",
+									"value": "token",
+									"type": "string"
+								},
+								{
+									"key": "header",
+									"value": "{}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwiaWF0IjoxNjgxMDY0MzU2LCJleHAiOjE2ODEzMjM1NTZ9.T_vDFv18BvPY-_zqgwNQ5p5TJFWYGw67kssgZyNoQQ4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/auth/me?id=642b855de5868f376249c531",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"auth",
+								"me"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "642b855de5868f376249c531"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Users Katas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwiaWF0IjoxNjgyMDAzMTk4LCJleHAiOjE2ODQ1OTUxOTh9.AyYOAWf6Y6I0U87ME20HwzedaC5SqHbl09OVsrcC4tQ",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/users/katas?id=644154f4add251e028be8afa",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"katas"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "644154f4add251e028be8afa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create user kata",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwiX2lkIjoiNjQ0MTU0ZjRhZGQyNTFlMDI4YmU4YWZhIiwiaWF0IjoxNjgyODcxNDQ0LCJleHAiOjE2ODU0NjM0NDR9.-0q_Wc4fTTpHS_nFsX1Kqt-eiUbikMZcyefBBHXbj-4",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"my new USER kata\",\n    \"level\": 54,\n    \"category\": \"Basic\",\n    \"creator\":\"642a360a89bab2a2bdcafb92\",\n    \"description\": \"node kata implementation\",\n    \"valoration\":[2],\n    \"chances\":4,\n    \"participants\":[\"par2\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/users/katas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"katas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user kata",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwiX2lkIjoiNjQ0MTU0ZjRhZGQyNTFlMDI4YmU4YWZhIiwiaWF0IjoxNjgyODcxNDQ0LCJleHAiOjE2ODU0NjM0NDR9.-0q_Wc4fTTpHS_nFsX1Kqt-eiUbikMZcyefBBHXbj-4",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"my new USER kata\",\n    \"level\": 54,\n    \"category\": \"Basic\",\n    \"creator\":\"642a360a89bab2a2bdcafb92\",\n    \"description\": \"node kata implementation\",\n    \"valoration\":[2],\n    \"chances\":4,\n    \"participants\":[\"par2\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/users/katas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"katas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user kata",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwiX2lkIjoiNjQ0MTU0ZjRhZGQyNTFlMDI4YmU4YWZhIiwiaWF0IjoxNjgyODcxNDQ0LCJleHAiOjE2ODU0NjM0NDR9.-0q_Wc4fTTpHS_nFsX1Kqt-eiUbikMZcyefBBHXbj-4",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"my new USER kata\",\n    \"level\": 54,\n    \"category\": \"Basic\",\n    \"creator\":\"642a360a89bab2a2bdcafb92\",\n    \"description\": \"node kata implementation\",\n    \"valoration\":[2],\n    \"chances\":4,\n    \"participants\":[\"par2\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/users/katas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"katas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add valoration to kata",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwiX2lkIjoiNjQ0MTU0ZjRhZGQyNTFlMDI4YmU4YWZhIiwiaWF0IjoxNjgyODcxNDQ0LCJleHAiOjE2ODU0NjM0NDR9.-0q_Wc4fTTpHS_nFsX1Kqt-eiUbikMZcyefBBHXbj-4",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"my new USER kata\",\n    \"level\": 54,\n    \"category\": \"Basic\",\n    \"creator\":\"642a360a89bab2a2bdcafb92\",\n    \"description\": \"node kata implementation\",\n    \"valoration\":[2],\n    \"chances\":4,\n    \"participants\":[\"par2\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/users/katas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"katas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add solution to kata",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwiX2lkIjoiNjQ0MTU0ZjRhZGQyNTFlMDI4YmU4YWZhIiwiaWF0IjoxNjgyODcxNDQ0LCJleHAiOjE2ODU0NjM0NDR9.-0q_Wc4fTTpHS_nFsX1Kqt-eiUbikMZcyefBBHXbj-4",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"my new USER kata\",\n    \"level\": 54,\n    \"category\": \"Basic\",\n    \"creator\":\"642a360a89bab2a2bdcafb92\",\n    \"description\": \"node kata implementation\",\n    \"valoration\":[2],\n    \"chances\":4,\n    \"participants\":[\"par2\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/users/katas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"users",
+								"katas"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Katas",
+			"item": [
+				{
+					"name": "Create new kata",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwiaWF0IjoxNjgxOTUyMTc1LCJleHAiOjE2ODIyMTEzNzV9.ZSzI3Rd02FSefm5Ds5kq_9Gnqj2d4bXHIC7MDXXbL9s",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"my new kata\",\n    \"level\": 54,\n    \"category\": \"Basic\",\n    \"creator\":\"642a360a89bab2a2bdcafb92\",\n    \"description\": \"node kata implementation\",\n    \"valoration\":[2],\n    \"chances\":4,\n    \"participants\":[\"par2\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/katas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"katas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get katas",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwiaWF0IjoxNjgxOTUyMTc1LCJleHAiOjE2ODIyMTEzNzV9.ZSzI3Rd02FSefm5Ds5kq_9Gnqj2d4bXHIC7MDXXbL9s",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/katas",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"katas"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all katas with pagination",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwiaWF0IjoxNjgxMDY0MzU2LCJleHAiOjE2ODEzMjM1NTZ9.T_vDFv18BvPY-_zqgwNQ5p5TJFWYGw67kssgZyNoQQ4",
+								"type": "default"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/katas?limit=2&page=4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"katas"
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "2"
+								},
+								{
+									"key": "page",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete kata by id",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwiaWF0IjoxNjgxOTUyMTc1LCJleHAiOjE2ODIyMTEzNzV9.ZSzI3Rd02FSefm5Ds5kq_9Gnqj2d4bXHIC7MDXXbL9s",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/katas?id=64036794c0afbd2fed7d66de",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"katas"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "64036794c0afbd2fed7d66de"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update kata by id Copy",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "x-access-token",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAZW1haWwuY29tIiwiaWF0IjoxNjgxOTUyMTc1LCJleHAiOjE2ODIyMTEzNzV9.ZSzI3Rd02FSefm5Ds5kq_9Gnqj2d4bXHIC7MDXXbL9s",
+								"type": "default"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"my new kata\",\n    \"level\": 22,\n    \"category\": \"New Edit\",\n    \"user\":\"642a360a89bab2a2bdcafb92\",\n    \"description\": \"node kata implementation\",\n    \"valoration\":2,\n    \"chances\":4,\n    \"participants\":[\"par1\"]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/katas?id=642a360a89bab2a2bdcafb92",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"katas"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "642a360a89bab2a2bdcafb92"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

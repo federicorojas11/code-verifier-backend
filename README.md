@@ -1,6 +1,8 @@
-# code-verifier-backend
+# API Restful MVC using TS Express + Mongoose & Swagger :electric_plug: :bulb:
 
-# API Restful MVC using TS Express + Mongoose & Swagger
+##### > Importar el archivo con los endpoints "Code-verifier.postman_collection.json" en postman (opcional) <
+
+#
 
 #### Dependencias:
 
@@ -14,6 +16,8 @@
     nodemon: "^2.0.20", // Compilar en tiempo real el archivo index.js en localhost para desarrollo
     webpack: "^5.75.0", // Minificador
     typescript: "^4.9.4"
+
+#### :large_orange_diamond: :small_blue_diamond: :small_blue_diamond: :large_orange_diamond: :small_blue_diamond: :small_blue_diamond: :large_orange_diamond: :small_blue_diamond: :small_blue_diamond: :large_orange_diamond: :small_blue_diamond: :small_blue_diamond: :large_orange_diamond: :small_blue_diamond: :small_blue_diamond: :large_orange_diamond: :small_blue_diamond: :small_blue_diamond: :large_orange_diamond: :small_blue_diamond: :small_blue_diamond: :large_orange_diamond: :small_blue_diamond: :small_blue_diamond: :large_orange_diamond: :small_blue_diamond: :small_blue_diamond: :large_orange_diamond: :small_blue_diamond: :small_blue_diamond: :large_orange_diamond: :small_blue_diamond: :small_blue_diamond: :large_orange_diamond: :small_blue_diamond: :small_blue_diamond: :large_orange_diamond: :small_blue_diamond: :small_blue_diamond: :large_orange_diamond:
 
 #### Scripts (seteados en package.json):
 
