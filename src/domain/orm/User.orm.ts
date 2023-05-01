@@ -316,3 +316,32 @@ export const updateORMUserKata = async (
             };
       }
 };
+
+// Delete user kata
+export const deleteORMUserKata = async (
+      kataId: string,
+      userId: string
+): Promise<any | undefined> => {
+      try {
+            return await katasModel.findById(kataId).then(async (kataFound) => {
+                  if (kataFound.creator !== userId) {
+                        LogError(
+                              `El creador tiene esta id ${kataFound.creator}, y se está intentado eliminar por este usuario ${userId}`
+                        );
+
+                        return {
+                              error: "La kata solo puede ser eliminada por su usuario creador",
+                        };
+                  }
+
+                  const response = await katasModel.findByIdAndDelete(kataId);
+                  LogSuccess(`[ORM] kata with id ${kataId} deleted`);
+                  return { message: `deleted ${kataId}` };
+            });
+      } catch (error) {
+            LogError(`[ORM ERROR] Deleting kata: ${error}`);
+            return {
+                  error: "La kata no pudo ser borrada porque no se ha encontrado, o hubo un error en la base de datos",
+            };
+      }
+};

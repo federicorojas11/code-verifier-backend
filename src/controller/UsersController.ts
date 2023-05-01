@@ -13,6 +13,7 @@ import {
       createUserKata,
       addORMKataSolution,
       updateORMUserKata,
+      deleteORMUserKata,
 } from "../domain/orm/User.orm";
 import { User } from "../domain/interfaces/user.interface";
 import { Kata } from "../domain/interfaces/katas.interface";
@@ -237,6 +238,27 @@ export class UsersController implements IUsersController {
                         };
                   }
             );
+
+            return response;
+      }
+
+      /**
+       * Delete kata from user
+       * @returns {any} Promise<any>
+       */
+      @Delete("/katas")
+      public async deleteKata(
+            @Query() kataId: string,
+            @Query() userId: string
+      ): Promise<any> {
+            let response: any = "";
+
+            LogSuccessBg("PUT=>/api/katas");
+            await deleteORMUserKata(kataId, userId.toString()).then((r) => {
+                  response = {
+                        message: r,
+                  };
+            });
 
             return response;
       }

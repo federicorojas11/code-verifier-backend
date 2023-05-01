@@ -267,4 +267,31 @@ usersRouter
             return res.status(200).send(response);
       });
 
+// http://localhost:8000/api/users/katas
+usersRouter
+      .route("/katas")
+      // DELETE
+      .delete(verifyToken, async (req: Request, res: Response) => {
+            LogInfo(`Router: Users DELETE kata`);
+
+            let { id } = req.body;
+
+            if (!id) {
+                  return res.status(400).send({
+                        message: "El id de la kata es requerido",
+                  });
+            }
+
+            const userId = req._id;
+            if (!userId) return;
+
+            const controller: UsersController = new UsersController();
+            const response: any = await controller.deleteKata(
+                  id,
+                  userId.toString()
+            );
+
+            return res.status(200).send(response);
+      });
+
 export default usersRouter;
