@@ -293,6 +293,10 @@ export const updateORMUserKata = async (
       try {
             return await katasModel.findById(kataId).then(async (kataFound) => {
                   if (kataFound.creator !== userId) {
+                        LogError(
+                              `El creador tiene esta id ${kataFound.creator}, y se está intentado editar por este usuario ${userId}`
+                        );
+
                         return {
                               error: "La kata solo puede ser editada por su usuario creador",
                         };
@@ -302,8 +306,8 @@ export const updateORMUserKata = async (
                         kataId,
                         kata
                   );
-                  LogSuccess(`[ORM] updated kata ${JSON.stringify(response)}`);
-                  return response;
+                  LogSuccess(`[ORM] updated kata ${JSON.stringify(kata)}`);
+                  return kata;
             });
       } catch (error) {
             LogError(`[ORM ERROR] Updating kata: ${error}`);
