@@ -206,8 +206,6 @@ export const GetKatasFromUser = async (
 // Create New Kata from User
 export const createUserKata = async (kata: any): Promise<any | undefined> => {
       try {
-            let response: string | Promise<any> = "";
-
             let createKata = await katasModel
                   .create({ ...kata }) // create
                   .then(async (_kata) => {
@@ -223,9 +221,8 @@ export const createUserKata = async (kata: any): Promise<any | undefined> => {
                   });
 
             LogSuccess(`[ORM] create kata ${JSON.stringify(createKata)}`);
-            response = Promise.all([createKata, updateUser]);
 
-            return await response;
+            return createKata;
       } catch (error) {
             LogError(`[ORM ERROR] Creating kata: ${error}`);
       }
@@ -252,10 +249,66 @@ export const addValorationKata = async (
                   valoration: valorations,
             };
 
-            LogSuccess(`[ORM] edited kata valoration ${JSON.stringify(kata)}`);
+            LogSuccess(
+                  `[ORM] edited kata valoration ${JSON.stringify(response)}`
+            );
 
             return response;
       } catch (error) {
-            LogError(`[ORM ERROR] Updating user: ${error}`);
+            LogError(`[ORM ERROR] Updating valoration: ${error}`);
+      }
+};
+
+// Add kata solution
+export const addORMKataSolution = async (
+      solution: string,
+      kataId: string
+): Promise<any | undefined> => {
+      try {
+            const kata = await katasModel.findByIdAndUpdate(kataId, {
+                  solution: solution,
+            }); // add kata solution
+
+            // * create response object
+            const response = {
+                  _id: kata._id,
+                  name: kata.name,
+                  solution: solution,
+            };
+
+            LogSuccess(`[ORM] added solution ${JSON.stringify(response)}`);
+
+            return response;
+      } catch (error) {
+            LogError(`[ORM ERROR] Adding solution: ${error}`);
+      }
+};
+
+// Update user kata
+export const updateORMUserKata = async (
+      kata: Kata,
+      kataId: string,
+      userId: string
+): Promise<any | undefined> => {
+      try {
+            return await katasModel.findById(kataId).then(async (kataFound) => {
+                  if (kataFound.creator !== userId) {
+                        return {
+                              error: "La kata solo puede ser editada por su usuario creador",
+                        };
+                  }
+
+                  const response = await katasModel.findByIdAndUpdate(
+                        kataId,
+                        kata
+                  );
+                  LogSuccess(`[ORM] updated kata ${JSON.stringify(response)}`);
+                  return response;
+            });
+      } catch (error) {
+            LogError(`[ORM ERROR] Updating kata: ${error}`);
+            return {
+                  error: "La kata no pudo ser actualizada porque no se ha encontrado, o hubo un error en la base de datos",
+            };
       }
 };

@@ -12,6 +12,7 @@ export const katasEntity = () => {
             chances: { type: Number, required: true },
             participants: { type: Array, required: true },
             creator: { type: String, required: true },
+            solution: { type: String, required: false },
       });
 
       return (

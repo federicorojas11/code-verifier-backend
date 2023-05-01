@@ -19,7 +19,7 @@ let usersRouter = express.Router();
 usersRouter
       .route("/")
       .post(verifyToken, jsonParser, async (req: Request, res: Response) => {
-            LogInfo(`Router: Users route POST`);
+            LogInfo(`Router: Users POST`);
             const controller: UsersController = new UsersController();
 
             // Obtain the hashed password
@@ -41,7 +41,7 @@ usersRouter
       .route("/")
       // GET
       .get(verifyToken, async (req: Request, res: Response) => {
-            LogInfo(`Router: Users route GET`);
+            LogInfo(`Router: Users GET`);
 
             let id: any = req?.query?.id;
             LogInfo(`Query param id: ${id}`);
@@ -62,7 +62,7 @@ usersRouter
       })
       // DELETE
       .delete(verifyToken, async (req: Request, res: Response) => {
-            LogInfo(`Router: Users route DELETE`);
+            LogInfo(`Router: Users DELETE`);
             let id: any = req?.query?.id;
             LogInfo(`Query param: ${id}`);
             const controller: UsersController = new UsersController();
@@ -72,7 +72,7 @@ usersRouter
 
 // UPDATE
 usersRouter.route("/").put(verifyToken, async (req: Request, res: Response) => {
-      LogInfo(`Router: Users route PUT`);
+      LogInfo(`Router: Users PUT`);
 
       const controller: UsersController = new UsersController();
       let user: User = {
@@ -103,7 +103,7 @@ usersRouter
       .route("/katas")
       // GET
       .get(verifyToken, async (req: Request, res: Response) => {
-            LogInfo(`Router: Users route GET Katas`);
+            LogInfo(`Router: Users GET Katas`);
 
             let id: any = req?.query?.id;
             if (id) LogInfo(`Query param id: ${id}`);
@@ -152,7 +152,7 @@ usersRouter
       .route("/katas")
       // POST
       .post(verifyToken, async (req: Request, res: Response) => {
-            LogInfo(`Router: Users route POST Katas`);
+            LogInfo(`Router: Users POST Katas`);
 
             let {
                   name,
@@ -185,15 +185,85 @@ usersRouter
       .route("/katas/valorate")
       // POST
       .post(verifyToken, async (req: Request, res: Response) => {
-            LogInfo(`Router: Users route POST new valoration for kata`);
+            LogInfo(`Router: Users POST new valoration for kata`);
 
             let { id, valoration } = req.body;
+
+            if (valoration > 5 || valoration < 1 || isNaN(valoration)) {
+                  return res.status(400).send({
+                        message: "La valoración debe ir en el rango de un número entre 1 y 5",
+                  });
+            }
 
             const controller: UsersController = new UsersController();
             const response: any = await controller.valorationKata(
                   valoration,
                   id
             );
+            return res.status(200).send(response);
+      });
+
+// http://localhost:8000/api/users/katas/solution
+usersRouter
+      .route("/katas/solution")
+      // POST
+      .post(verifyToken, async (req: Request, res: Response) => {
+            LogInfo(`Router: Users POST solution for kata`);
+
+            let { solution, id } = req.body;
+
+            if (!id) {
+                  return res.status(400).send({
+                        message: "El id de la kata es requerido",
+                  });
+            }
+
+            if (!solution) {
+                  return res.status(400).send({
+                        message: "La solución es requerida",
+                  });
+            }
+
+            const controller: UsersController = new UsersController();
+            const response: any = await controller.solveKata(solution, id);
+            return res.status(200).send(response);
+      });
+
+// http://localhost:8000/api/users/katas
+usersRouter
+      .route("/katas")
+      // PUT
+      .put(verifyToken, async (req: Request, res: Response) => {
+            LogInfo(`Router: Users PUT kata`);
+
+            let { kata, id } = req.body;
+
+            if (!id) {
+                  return res.status(400).send({
+                        message: "El id de la kata es requerido",
+                  });
+            }
+
+            if (!kata) {
+                  return res.status(400).send({
+                        message: "La solución es requerida",
+                  });
+            }
+
+            const userId = req._id;
+            if (!userId) return;
+
+            const controller: UsersController = new UsersController();
+            const response: any = await controller.updateKata(
+                  kata,
+                  id,
+                  userId.toString()
+            );
+
+            if (response?.kata?.error) {
+                  return res.status(400).send(response);
+            }
+
             return res.status(200).send(response);
       });
 

@@ -11,6 +11,8 @@ import {
       getUserById,
       updateUser,
       createUserKata,
+      addORMKataSolution,
+      updateORMUserKata,
 } from "../domain/orm/User.orm";
 import { User } from "../domain/interfaces/user.interface";
 import { Kata } from "../domain/interfaces/katas.interface";
@@ -155,15 +157,15 @@ export class UsersController implements IUsersController {
        * Create kata
        * @returns {any} Promise<any>
        */
-      @Post("/")
+      @Post("/katas")
       public async createKata(@Query() kata: Kata): Promise<any> {
             let response: any = "";
 
-            LogSuccessBg("POST=>/api/kata");
-            await createUserKata(kata).then((r) => {
+            LogSuccessBg("POST=>/api/katas");
+            await createUserKata(kata).then((res) => {
                   response = {
                         message: `Kata created successfully`,
-                        kata: kata,
+                        kata: res,
                   };
             });
 
@@ -174,20 +176,67 @@ export class UsersController implements IUsersController {
        * Create kata valoration
        * @returns {any} Promise<any>
        */
-      @Post("/")
+      @Post("/katas/valoration")
       public async valorationKata(
             @Query() valoration: number,
             @Query() kataId: string
       ): Promise<any> {
             let response: any = "";
 
-            LogSuccessBg("POST=>/api/kata");
+            LogSuccessBg("POST=>/api/katas");
             await addValorationKata(valoration, kataId).then((r) => {
                   response = {
                         message: `Kata valoration updated`,
                         kata: r,
                   };
             });
+
+            return response;
+      }
+
+      /**
+       * Create kata solution
+       * @returns {any} Promise<any>
+       */
+      @Post("/")
+      public async solveKata(
+            @Query() solution: string,
+            @Query() kataId: string
+      ): Promise<any> {
+            let response: any = "";
+
+            LogSuccessBg("POST=>/api/katass/solution");
+            await addORMKataSolution(solution, kataId).then((r) => {
+                  response = {
+                        message: `Solution to kata added`,
+                        kata: r,
+                  };
+            });
+
+            return response;
+      }
+
+      /**
+       * Update kata from user
+       * @returns {any} Promise<any>
+       */
+      @Put("/katas")
+      public async updateKata(
+            @Query() kata: Kata,
+            @Query() kataId: string,
+            @Query() userId: string
+      ): Promise<any> {
+            let response: any = "";
+
+            LogSuccessBg("PUT=>/api/katas");
+            await updateORMUserKata(kata, kataId, userId.toString()).then(
+                  (r) => {
+                        response = {
+                              message: `Update user kata`,
+                              kata: r,
+                        };
+                  }
+            );
 
             return response;
       }
