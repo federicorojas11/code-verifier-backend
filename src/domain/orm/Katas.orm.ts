@@ -22,19 +22,19 @@ export const GetAllKatas = async (
             limit
                   ? await katasModel
                           .find()
-                          .select("name level valoration chances")
+                          //   .select("name user level valoration chances")
                           .limit(limit ? limit : -1)
                           .skip((page! - 1) * limit!)
                           .exec()
                           .then((katas) => {
-                                response = katas;
+                                response = { katas: katas };
                           })
                   : await katasModel
                           .find()
-                          .select("name level valoration chances")
+                          //   .select("name user level valoration chances")
                           .exec()
                           .then((katas) => {
-                                response = katas;
+                                response = { katas: katas };
                           });
 
             // Count total document of users
